@@ -8,11 +8,11 @@ const Form = ({
   links = [],
 }) => {
   return (
-    <form className="form" onSubmit={handleSubmit}>
-      <fieldset className="form__fieldset">
+    <form className="form" onSubmit={(e) => handleSubmit(e)}>
+      <fieldset className="fieldset">
         <legend>User Details</legend>
         {fields.map((field, index) => (
-          <div key={index} className="form__field">
+          <div key={index} className="field">
             <input
               type={field.type}
               id={field.id}
@@ -29,14 +29,21 @@ const Form = ({
         <button type="submit" className="btn btn--2">
           {submitBtnText}
         </button>
-        <div className="form__account-options">
-          {links.map((link, _) => (
-            <>
+        <div className="account-options">
+          {links.map((link, index) => (
+            <React.Fragment key={index}>
               {link.question && <p>{link.question}</p>}
-              <Link to={link.to} className={`${link.for}-link`}>
+              <Link
+                to={link.to}
+                className={`${
+                  link.for === "forgot-password"
+                    ? "forgot-password-link"
+                    : "btn btn--1"
+                }`}
+              >
                 {link.text}
               </Link>
-            </>
+            </React.Fragment>
           ))}
         </div>
       </fieldset>

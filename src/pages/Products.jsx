@@ -15,7 +15,12 @@ import { addProductToCart } from "../api requests/shoppingCart api's/shoppingCar
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [wishListProductsIds, setWishListProductsIds] = useState([]);
-  const [quantity, setQuantity] = useState(1);
+  const [quantity, setQuantity] = useState(1); 
+  
+  const { user } = useContext(AuthContext);
+  const navigate = useNavigate();
+  const userRole = user?.role;
+  const modalRef = useRef();
 
   const categoryNames = {
     SMART_PHONE: "Smart Phone",
@@ -23,13 +28,6 @@ const Products = () => {
     LAPTOP: "Laptop",
     TV: "TV",
   };
-
-  const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
-
-  const userRole = user?.role;
-
-  const modalRef = useRef();
 
   useEffect(() => {
     const fetchAllProducts = async () => {
@@ -67,13 +65,13 @@ const Products = () => {
           user.id,
           productId
         );
-        setWishListProductsIds((wishListProductsIds) =>
-          [...wishListProductsIds].filter((id) => id !== productId)
+        setWishListProductsIds((prevWishListProductsIds) =>
+          [...prevWishListProductsIds].filter((id) => id !== productId)
         );
       } else {
         updatedWishListData = await addProductToWishList(user.id, productId);
-        setWishListProductsIds((wishListProductsIds) => [
-          ...wishListProductsIds,
+        setWishListProductsIds((prevWishListProductsIds) => [
+          ...prevWishListProductsIds,
           productId,
         ]);
       }
@@ -118,7 +116,7 @@ const Products = () => {
 
     try {
       const createdProduct = await addProduct(product);
-      setProducts((products) => [...products, createdProduct]);
+      setProducts((prevProducts) => [...prevProducts, createdProduct]);
       alert("Product added successfully!");
       event.target.reset();
       closeAddProductModal();
@@ -129,22 +127,19 @@ const Products = () => {
 
   return (
     <section className="products" id="products">
-      <div className="section__title">
+      <div className="section-title">
         <h1>Products</h1>
       </div>
 
-      <div className="products__add-product">
+      <div className="products-add-product">
         {userRole === "ADMIN" && (
-          <button
-            className="btn btn--primary"
-            onClick={() => openAddProductModal()}
-          >
+          <button className="btn btn--2" onClick={() => openAddProductModal()}>
             <i className="fa-solid fa-plus"></i> Add Product
           </button>
         )}
       </div>
 
-      <dialog ref={modalRef} className="products__add-product-dialog">
+      <dialog ref={modalRef} className="products-add-product-dialog">
         <h1>Add New Product</h1>
         <button className="close-btn" onClick={closeAddProductModal}>
           <i className="fa-solid fa-times"></i>
@@ -183,15 +178,13 @@ const Products = () => {
         </form>
       </dialog>
 
-      <p className="products__items-found">
-        <b>{products.length}</b> Items Found
-      </p>
+      <p className="products-items-found">{products.length} Products found</p>
 
-      <div className="products__container">
+      <div className="products-container">
         {products.map((product) => (
           <div key={product.id} className="product">
             <Link to={`/products/product/${product.id}`}>
-              <div className="product__image-container">
+              <div className="product-image-container">
                 <img src={product.imgUrl} alt={product.name} />
                 <button
                   className="add-to-wishlist-btn"
@@ -208,15 +201,15 @@ const Products = () => {
                 </button>
               </div>
 
-              <span className="info">{categoryNames[product.category]}</span>
+              <span className="info info--category">{categoryNames[product.category]}</span>
               {product.stockQuantity <= 0 && (
-                <span className="info--out-of-stock">Out of Stock</span>
+                <span className="info info--out-of-stock">Out of Stock</span>
               )}
-              <h2 className="product__name">{product.name}</h2>
-              <p className="product__price">${product.price}</p>
+              <h2 className="product-name">{product.name}</h2>
+              <p className="product-price">${product.price}</p>
             </Link>
 
-            {/* <div className="product__add-to">
+            {/* <div className="product-add-to">
               <button
                 className="add-to-wishlist"
                 onClick={() => handleAddProductToWishList(user, product.id)}

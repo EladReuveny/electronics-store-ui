@@ -20,11 +20,20 @@ export const getOrdersByUserId = async (userId) => {
 /**
  * Update order status by order ID
  * @param {number} orderId
+ * @param {Object} newOrderStatus
  * @returns {Promise<Object>} Updated order
  */
-export const updateOrderStatus = async (orderId) => {
+export const updateOrderStatus = async (orderId, newOrderStatus) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/${orderId}/update`);
+    const response = await axios.put(
+      `${API_BASE_URL}/${orderId}`,
+      newOrderStatus,
+      {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      }
+    );
     return response.data;
   } catch (error) {
     console.error("Error updating order status:", error);

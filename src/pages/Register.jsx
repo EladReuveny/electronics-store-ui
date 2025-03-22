@@ -30,7 +30,7 @@ const Register = () => {
 
   return (
     <section className="register" id="register">
-      <div className="section__title">
+      <div className="section-title">
         <h1>Sign Up</h1>
       </div>
 
@@ -57,7 +57,7 @@ const Register = () => {
             name: "phone",
           },
         ]}
-        onSubmit={handleSubmit}
+        handleSubmit={handleSubmit}
         submitBtnText="Sign Up"
         links={[
           {

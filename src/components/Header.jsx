@@ -46,6 +46,7 @@ const Header = () => {
       let filteredProducts = response.data;
 
       const sortBySelectVal = sortBySelect.current.value;
+
       if (sortBySelectVal) {
         filteredProducts = [...filteredProducts].sort((a, b) =>
           sortBySelectVal === "ascending-order"
@@ -61,7 +62,6 @@ const Header = () => {
       }
 
       setProducts(filteredProducts);
-      console.log("Filtered Products:", filteredProducts);
     } catch (error) {
       console.error("Error searching for products:", error);
     }
@@ -69,7 +69,7 @@ const Header = () => {
 
   return (
     <header className="header" id="header">
-      <nav className="header__navbar">
+      <nav className="header-navbar">
         <Logo />
         <div className="search-container">
           <div className="search-bar" onClick={openSearchModal} title="Search">
@@ -107,7 +107,7 @@ const Header = () => {
             <details className="advanced-search-filters">
               <summary>Advanced Search Filters</summary>
               <div className="filters">
-                <div className="filters__sort-by">
+                <div className="filters-sort-by">
                   <label htmlFor="sort-by">Sort by (price):</label>
                   <select
                     ref={sortBySelect}
@@ -123,7 +123,7 @@ const Header = () => {
                   </select>
                 </div>
 
-                <div className="filters__out-of-stock">
+                <div className="filters-out-of-stock">
                   <label htmlFor="out-of-stock">Hide out of stock</label>
                   <input
                     ref={outOfStockCheckbox}
@@ -134,6 +134,7 @@ const Header = () => {
                 </div>
               </div>
             </details>
+
             {products.length > 0 ? (
               products.map((product) => (
                 <div key={product.id} className="product">
@@ -149,9 +150,10 @@ const Header = () => {
             )}
           </dialog>
         </div>
+
         <div className="categories">
           Categories
-          <ul className="categories__list">
+          <ul className="categories-list">
             <li>
               <Link to="/products/category/smart-phones">Smart Phones</Link>
             </li>
@@ -166,33 +168,38 @@ const Header = () => {
             </li>
           </ul>
         </div>
+
         <div className="orders">
           <Link to="/orders">Orders</Link>
         </div>
+
         <div className="profile">
           <Link to="/profile">
             <i className="fa-solid fa-user"></i>
           </Link>
         </div>
+
         <div className="wishlist">
           <Link to="/wishlist">
             <i className="fa-solid fa-heart"></i>
           </Link>
         </div>
+
         <div className="shopping-cart">
           <Link to="/shopping-cart">
             <i className="fa-solid fa-shopping-cart"></i>
           </Link>
         </div>
+
         <div className="auth">
           {user ? (
-            <Link to="/login" onClick={logout}>
+            <Link to="/login" onClick={logout} className="btn btn--4">
               Logout
             </Link>
           ) : (
-            <Link to="/login">Login</Link>
+            <Link to="/login" className="btn btn--4">Login</Link>
           )}
-          <Link to="/register">Register</Link>
+          <Link to="/register" className="btn btn--1">Register</Link>
         </div>
       </nav>
     </header>

@@ -6,6 +6,7 @@ import {
   moveToShoppingCart,
   removeProductFromWishList,
 } from "../api requests/wishList api's/wishList";
+import StartShopping from "../components/StartShopping";
 
 const WishList = () => {
   const [wishList, setWishList] = useState({});
@@ -55,25 +56,35 @@ const WishList = () => {
 
   return (
     <section className="wishlist" id="wishlist">
-      <div className="section__title">
+      <div className="section-title">
         <h1>Wishlist</h1>
       </div>
 
-      {wishList?.products?.map((product) => (
-        <div key={product.id} className="wishlist__product">
-          <img src={product.imgUrl} alt={product.name} />
-          <h2>{product.name}</h2>
-          <p>{product.description}</p>
-          <button
-            onClick={() => handleRemoveProductFromWishList(user.id, product.id)}
-          >
-            <span class="material-symbols-outlined">delete</span>
-          </button>
-          <button onClick={() => handleMoveToShoppingCart(user.id, product.id)}>
-            Move to Cart
-          </button>
+      {wishList?.products?.length > 0 ? (
+        <div className="wishlist-container">
+          {wishList?.products?.map((product) => (
+            <div key={product.id} className="wishlist-product">
+              <img src={product.imgUrl} alt={product.name} />
+              <h2>{product.name}</h2>
+              <p>{product.description}</p>
+              <button
+                onClick={() =>
+                  handleRemoveProductFromWishList(user.id, product.id)
+                }
+              >
+                <span class="material-symbols-outlined">delete</span>
+              </button>
+              <button
+                onClick={() => handleMoveToShoppingCart(user.id, product.id)}
+              >
+                Move to Cart
+              </button>
+            </div>
+          ))}
         </div>
-      ))}
+      ) : (
+        <StartShopping text="Nothing saved yet. Start Shopping." />
+      )}
     </section>
   );
 };

@@ -90,3 +90,25 @@ export const checkout = async (userId) => {
     throw error;
   }
 };
+
+/**
+ * Update a cart item's quantity.
+ * @param {number} userId
+ * @param {number} itemId
+ * @param {number} quantity
+ * @returns {Promise<Object>} Updated shopping cart.
+ */
+export const updateItemQuantity = async (userId, itemId, quantity) => {
+  try {
+    const response = await axios.put(
+      `${API_BASE_URL}/user/${userId}/update-quantity/${itemId}?quantity=${quantity}`
+    );
+    return response.data;
+  } catch (error) {
+    console.error(
+      `Error updating item ${itemId} quantity for user ${userId}:`,
+      error
+    );
+    throw error;
+  }
+}

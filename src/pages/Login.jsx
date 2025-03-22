@@ -19,7 +19,7 @@ const Login = () => {
 
     try {
       const authinticatedUserDetails = await loginUser(userLoginDTO);
-      // Save authenticated user details in local storage or Redux store
+
       if (authinticatedUserDetails) {
         login(authinticatedUserDetails);
         navigate("/products");
@@ -31,7 +31,7 @@ const Login = () => {
 
   return (
     <section className="login" id="login">
-      <div className="section__title">
+      <div className="section-title">
         <h1>Sign In</h1>
       </div>
 

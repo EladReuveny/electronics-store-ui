@@ -49,11 +49,11 @@ const ProductsByCategory = () => {
 
   return (
     <section className="products-categories">
-      <div className="section__title">
+      <div className="section-title">
         <h1>{categoryTitle}</h1>
       </div>
 
-      <div className="products-categories__container">
+      <div className="products-categories-container">
         {products.map((product) => (
           <div key={product.id} className="product">
             <Link to={`/products/product/${product.id}`}>

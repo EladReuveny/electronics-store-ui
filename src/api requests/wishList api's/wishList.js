@@ -5,7 +5,7 @@ const API_BASE_URL = "http://localhost:8080/api/v1/wish-list";
 /**
  * Get the wishlist for a user.
  * @param {number} userId
- * @returns {Promise<Object[]>} List of products in the wishlist
+ * @returns {Promise<Object[]>} User's wishlist
  */
 export const getWishList = async (userId) => {
   try {
@@ -30,7 +30,10 @@ export const addProductToWishList = async (userId, productId) => {
     );
     return response.data;
   } catch (error) {
-    console.error(`Error adding product ${productId} to wishlist for user ${userId}:`, error);
+    console.error(
+      `Error adding product ${productId} to wishlist for user ${userId}:`,
+      error
+    );
     throw error;
   }
 };
@@ -48,7 +51,10 @@ export const removeProductFromWishList = async (userId, productId) => {
     );
     return response.data;
   } catch (error) {
-    console.error(`Error removing product ${productId} from wishlist for user ${userId}:`, error);
+    console.error(
+      `Error removing product ${productId} from wishlist for user ${userId}:`,
+      error
+    );
     throw error;
   }
 };
@@ -57,18 +63,35 @@ export const removeProductFromWishList = async (userId, productId) => {
  * Move a product from the wishlist to the shopping cart.
  * @param {number} userId
  * @param {number} productId
+ * @param {number} [quantity = 1] quantity
  * @returns {Promise<Object>} Updated wishlist
  */
-export const moveToShoppingCart = async (userId, productId) => {
+export const moveToShoppingCart = async (userId, productId, quantity) => {
   try {
     const response = await axios.post(
-      `${API_BASE_URL}/user/${userId}/move-to-cart/${productId}`
+      `${API_BASE_URL}/user/${userId}/move-to-cart/${productId}?quantity=${quantity}`
     );
     return response.data;
   } catch (error) {
-    // console.error(`Error moving product ${productId} from wishlist to cart for user ${userId}:`, error);
-    // throw error;
-    console.log(error);
-    
+    console.error(
+      `Error moving product ${productId} from wishlist to cart for user ${userId}:`,
+      error
+    );
+    throw error;
   }
 };
+
+/**
+ * Clear a user's wish list.
+ * @param {number} userId
+ * @returns {Promise<Object>} Updated wishlist
+ */
+export const clearWishList = async (userId) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/user/${userId}/clear-wishlist`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error clearing wishlist for user ${userId}:`, error);
+    throw error;
+  }
+}

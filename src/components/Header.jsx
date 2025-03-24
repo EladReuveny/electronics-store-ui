@@ -155,7 +155,7 @@ const Header = () => {
           Categories
           <ul className="categories-list">
             <li>
-              <Link to="/products/category/smart-phones">Smart Phones</Link>
+              <Link to="/products/category/smart_phones">Smart Phones</Link>
             </li>
             <li>
               <Link to="/products/category/tablets">Tablets</Link>

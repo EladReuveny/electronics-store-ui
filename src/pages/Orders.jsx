@@ -148,8 +148,8 @@ const Orders = () => {
         {selectedOrder && (
           <div className="order">
             <div className="header">
-              <button className="btn info--canceled" title="Cancel Order">
-                Cancel
+              <button className="btn btn--5" title="Cancel Order">
+                Cancel Order
               </button>
               <div className="title">
                 <h2>Order #{selectedOrder.id}</h2>

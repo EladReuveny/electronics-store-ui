@@ -42,7 +42,7 @@ export const addProductToCart = async (userId, productId, quantity) => {
 /**
  * Clear a user's shopping cart.
  * @param {number} userId
- * @returns {Promise<void>}
+ * @returns {Promise<void>} Updated cart
  */
 export const clearCart = async (userId) => {
   try {

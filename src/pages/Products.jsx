@@ -15,8 +15,7 @@ import { addProductToCart } from "../api requests/shoppingCart api's/shoppingCar
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [wishListProductsIds, setWishListProductsIds] = useState([]);
-  const [quantity, setQuantity] = useState(1); 
-  
+
   const { user } = useContext(AuthContext);
   const navigate = useNavigate();
   const userRole = user?.role;
@@ -36,9 +35,9 @@ const Products = () => {
         setProducts(productData);
 
         if (user) {
-          const wishlistData = await getWishList(user.id);
+          const wishListData = await getWishList(user.id);
           setWishListProductsIds(
-            wishlistData.products.map((product) => product.id)
+            wishListData.products.map((product) => product.id)
           );
         }
       } catch (error) {
@@ -77,20 +76,6 @@ const Products = () => {
       }
     } catch (error) {
       console.error("Error adding/removing product from wishlist:", error);
-    }
-  };
-
-  const handleAddProductToCart = async (user, productId, quantity) => {
-    if (!user) {
-      alert("Please log in first.");
-      navigate("/login");
-    }
-
-    try {
-      const updatedCart = await addProductToCart(user.id, productId, quantity);
-      alert("Product added to cart!");
-    } catch (error) {
-      console.error("Error adding product to cart");
     }
   };
 
@@ -141,20 +126,26 @@ const Products = () => {
 
       <dialog ref={modalRef} className="products-add-product-dialog">
         <h1>Add New Product</h1>
+
         <button className="close-btn" onClick={closeAddProductModal}>
           <i className="fa-solid fa-times"></i>
         </button>
+
         <form onSubmit={handleAddProductSubmit}>
           <fieldset>
             <legend>Product Details</legend>
             <label htmlFor="name">Name:</label>
             <input type="text" id="name" name="name" required />
+
             <label htmlFor="description">Description:</label>
             <textarea id="description" name="description"></textarea>
+
             <label htmlFor="price">Price:</label>
             <input type="number" id="price" name="price" required />
+
             <label htmlFor="imgUrl">Image URL:</label>
             <input type="url" id="imgUrl" name="imgUrl" required />
+
             <label htmlFor="stockQuantity">Stock Quantity:</label>
             <input
               type="number"
@@ -162,6 +153,7 @@ const Products = () => {
               name="stockQuantity"
               required
             />
+
             <label htmlFor="category">Category:</label>
             <select id="category" name="category" required>
               <option value="SMART_PHONE">Smart Phone</option>
@@ -169,7 +161,9 @@ const Products = () => {
               <option value="LAPTOP">Laptop</option>
               <option value="TV">TV</option>
             </select>
+
             <button type="reset">Reset</button>
+
             <button type="submit">
               <i className="fa-solid fa-plus"></i>
               Add Product
@@ -201,40 +195,17 @@ const Products = () => {
                 </button>
               </div>
 
-              <span className="info info--category">{categoryNames[product.category]}</span>
+              <span className="info info--category">
+                {categoryNames[product.category]}
+              </span>
+
               {product.stockQuantity <= 0 && (
                 <span className="info info--out-of-stock">Out of Stock</span>
               )}
+
               <h2 className="product-name">{product.name}</h2>
               <p className="product-price">${product.price}</p>
             </Link>
-
-            {/* <div className="product-add-to">
-              <button
-                className="add-to-wishlist"
-                onClick={() => handleAddProductToWishList(user, product.id)}
-              >
-                <i className="fa-solid fa-heart"></i>
-              </button>
-              <label htmlFor="quantity"></label>
-              <input
-                type="text"
-                id="quantity"
-                name="quantity"
-                value={quantity}
-                onChange={(e) => setQuantity(e.target.value)}
-                min="1"
-              />
-              <button
-                className="add-to-cart"
-                onClick={() =>
-                  handleAddProductToCart(user, product.id, quantity)
-                }
-              >
-                <i className="fa-solid fa-shopping-cart"></i>
-                Add to Cart
-              </button>
-            </div> */}
           </div>
         ))}
       </div>

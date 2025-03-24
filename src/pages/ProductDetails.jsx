@@ -82,9 +82,14 @@ const ProductDetails = () => {
       navigate("/login");
     }
 
+    if (quantity < 1) {
+      alert("Quantity must be a positive integer.");
+      return;
+    }
+
     try {
       const updatedCart = await addProductToCart(user.id, productId, quantity);
-      alert("Product added to cart!");
+      alert("Successfully has been added!");
     } catch (error) {
       console.error("Error adding product to cart");
     }
@@ -122,28 +127,34 @@ const ProductDetails = () => {
               <span className="info info--out-of-stock">Out of Stock</span>
             )}
           </div>
-          <p className="product-price">${product.price}</p>
-          <p className="product-description">{product.description}</p>
 
-          <div className="add-to-cart">
-            <div className="quantity">
-              <label htmlFor="quantity">Quantity: </label>
-              <input
-                type="number"
-                id="quantity"
-                name="quantity"
-                value={quantity}
-                min={1}
-                onChange={(e) => setQuantity(e.target.value)}
-              />
-            </div>
-            <button
-              className="btn btn--2"
-              onClick={() => handleAddProductToCart(user, product.id, quantity)}
-            >
-              Add to Cart<i className="fa-solid fa-shopping-cart"></i>
-            </button>
+          <div className="product-details">
+            <p className="product-price">${product.price}</p>
+            <p className="product-description">{product.description}</p>
           </div>
+
+          <div className="quantity">
+            <label htmlFor="quantity">Quantity: </label>
+            <input
+              type="number"
+              id="quantity"
+              name="quantity"
+              value={quantity}
+              min={1}
+              onChange={(e) => setQuantity(e.target.value)}
+              onKeyDown={(e) =>
+                e.key === "Enter" &&
+                handleAddProductToCart(user, product.id, quantity)
+              }
+            />
+          </div>
+
+          <button
+            className="btn btn--2"
+            onClick={() => handleAddProductToCart(user, product.id, quantity)}
+          >
+            Add to Cart<i className="fa-solid fa-shopping-cart"></i>
+          </button>
         </div>
       </div>
     </section>

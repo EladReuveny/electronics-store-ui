@@ -26,9 +26,11 @@ const Form = ({
             </label>
           </div>
         ))}
+
         <button type="submit" className="btn btn--2">
-          {submitBtnText}
+          {submitBtnText}<i className="fa-solid fa-right-to-bracket"></i>
         </button>
+
         <div className="account-options">
           {links.map((link, index) => (
             <React.Fragment key={index}>

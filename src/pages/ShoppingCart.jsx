@@ -1,9 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import {
   checkout,
+  clearCart,
   getCartByUserId,
   removeProductFromCart,
-  updateItemQuantity,
 } from "../api requests/shoppingCart api's/shoppingCart";
 import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
@@ -32,19 +32,6 @@ const ShoppingCart = () => {
     fetchCart();
   }, []);
 
-  const handleUpdateItemQuantity = async (e, userId, itemId) => {
-    try {
-      const updatedCart = await updateItemQuantity(
-        userId,
-        itemId,
-        e.target.value
-      );
-      setCart(updatedCart);
-    } catch (error) {
-      console.error("Error updating item quantity:", error);
-    }
-  };
-
   const handleRemoveProductFromCart = async (e, userId, productId) => {
     e.preventDefault();
 
@@ -53,6 +40,15 @@ const ShoppingCart = () => {
       setCart(updatedCart);
     } catch (e) {
       console.error("Error removing product from cart:", e);
+    }
+  };
+
+  const handleClearCart = async (userId) => {
+    try {
+      const updatedCart = await clearCart(userId);
+      setCart(updatedCart);
+    } catch (e) {
+      console.error("Error clearing cart:", e);
     }
   };
 
@@ -86,72 +82,45 @@ const ShoppingCart = () => {
           <div className="cart-list">
             {cart.items.map((item, index) => (
               <div key={item.id} className="cart-item">
-                <span
-                  onClick={(e) =>
-                    navigate(`/products/product/${item.product.id}`)
-                  }
-                >
-                  {index + 1}
-                </span>
-                <img
-                  src={item.product.imgUrl}
-                  alt={item.product.name}
-                  onClick={(e) =>
-                    navigate(`/products/product/${item.product.id}`)
-                  }
-                />
-                <span
-                  onClick={(e) =>
-                    navigate(`/products/product/${item.product.id}`)
-                  }
-                >
-                  {item.product.name}
-                </span>
-                <span
-                  onClick={(e) =>
-                    navigate(`/products/product/${item.product.id}`)
-                  }
-                >
-                  ${item.product.price}
-                </span>
-                <input
-                  type="number"
-                  id="quantity"
-                  name="quantity"
-                  className="btn"
-                  value={item.quantity}
-                  min={1}
-                  onChange={(e) =>
-                    handleUpdateItemQuantity(e, user.id, item.id)
-                  }
-                />
-                <span
-                  onClick={(e) =>
-                    navigate(`/products/product/${item.product.id}`)
-                  }
-                >
-                  ${(item.product.price * item.quantity).toFixed(2)}
-                </span>
-                <button
-                  className="btn btn--1"
-                  onClick={(e) =>
-                    handleRemoveProductFromCart(e, user.id, item.product.id)
-                  }
-                >
-                  Remove <i className="fa-solid fa-trash"></i>
-                </button>
+                <Link to={`/products/product/${item.product.id}`}>
+                  <span>{index + 1}</span>
+                  <img src={item.product.imgUrl} alt={item.product.name} />
+                  <span>{item.product.name}</span>
+                  <span>${item.product.price}</span>
+                  <span>{item.quantity}</span>
+                  <span>
+                    ${(item.product.price * item.quantity).toFixed(2)}
+                  </span>
+                  <button
+                    className="btn btn--6"
+                    onClick={(e) =>
+                      handleRemoveProductFromCart(e, user.id, item.product.id)
+                    }
+                  >
+                    Remove <i className="fa-solid fa-trash"></i>
+                  </button>
+                </Link>
               </div>
             ))}
           </div>
 
           <div className="cart-total">
             <p>Total: ${cart.totalAmount.toFixed(2)}</p>
-            <button
-              className="btn btn--2"
-              onClick={() => handleCheckout(user.id)}
-            >
-              Order
-            </button>
+
+            <div className="actions">
+              <button
+                className="btn btn--2"
+                onClick={() => handleCheckout(user.id)}
+              >
+                Order
+              </button>
+              <button
+                className="btn btn--5"
+                onClick={() => handleClearCart(user.id)}
+              >
+                Clear Cart
+              </button>
+            </div>
           </div>
         </div>
       ) : (

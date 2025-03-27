@@ -116,63 +116,113 @@ const Products = () => {
         <h1>Products</h1>
       </div>
 
-      <div className="products-add-product">
-        {userRole === "ADMIN" && (
-          <button className="btn btn--2" onClick={() => openAddProductModal()}>
-            <i className="fa-solid fa-plus"></i> Add Product
-          </button>
-        )}
-      </div>
-
       <dialog ref={modalRef} className="products-add-product-dialog">
-        <h1>Add New Product</h1>
-
-        <button className="close-btn" onClick={closeAddProductModal}>
-          <i className="fa-solid fa-times"></i>
+        <button className="btn btn--3" onClick={closeAddProductModal}>
+          <i className="fa-solid fa-circle-xmark" title="Close"></i>
         </button>
 
-        <form onSubmit={handleAddProductSubmit}>
-          <fieldset>
+        <h1>Add new Product</h1>
+
+        <form className="form" onSubmit={handleAddProductSubmit}>
+          <fieldset className="fieldset">
             <legend>Product Details</legend>
-            <label htmlFor="name">Name:</label>
-            <input type="text" id="name" name="name" required />
 
-            <label htmlFor="description">Description:</label>
-            <textarea id="description" name="description"></textarea>
+            <div className="field">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder=""
+                required
+                autoFocus
+              />
+              <label htmlFor="name">Name</label>
+            </div>
 
-            <label htmlFor="price">Price:</label>
-            <input type="number" id="price" name="price" required />
+            <div className="field">
+              <textarea
+                id="description"
+                name="description"
+                placeholder=""
+              ></textarea>
+              <label htmlFor="description">Description</label>
+            </div>
 
-            <label htmlFor="imgUrl">Image URL:</label>
-            <input type="url" id="imgUrl" name="imgUrl" required />
+            <div className="field">
+              <input
+                type="number"
+                id="price"
+                name="price"
+                placeholder=""
+                required
+              />
+              <label htmlFor="price">Price</label>
+            </div>
 
-            <label htmlFor="stockQuantity">Stock Quantity:</label>
-            <input
-              type="number"
-              id="stockQuantity"
-              name="stockQuantity"
-              required
-            />
+            <div className="field">
+              <input
+                type="url"
+                id="imgUrl"
+                name="imgUrl"
+                placeholder=""
+                required
+              />
+              <label htmlFor="imgUrl">Image URL</label>
+            </div>
 
-            <label htmlFor="category">Category:</label>
-            <select id="category" name="category" required>
-              <option value="SMART_PHONE">Smart Phone</option>
-              <option value="TABLET">Tablet</option>
-              <option value="LAPTOP">Laptop</option>
-              <option value="TV">TV</option>
-            </select>
+            <div className="field">
+              <input
+                type="number"
+                id="stockQuantity"
+                name="stockQuantity"
+                placeholder=""
+                required
+              />
+              <label htmlFor="stockQuantity">Stock Quantity</label>
+            </div>
 
-            <button type="reset">Reset</button>
+            <div className="field">
+              <span htmlFor="category">Category:</span>
+              <select
+                id="category"
+                name="category"
+                className="btn btn--1"
+                defaultValue=""
+                required
+              >
+                <option value="" hidden disabled>
+                  --- Select a category ---
+                </option>
+                <option value="SMART_PHONE">Smart Phone</option>
+                <option value="TABLET">Tablet</option>
+                <option value="LAPTOP">Laptop</option>
+                <option value="TV">TV</option>
+              </select>
+            </div>
 
-            <button type="submit">
-              <i className="fa-solid fa-plus"></i>
-              Add Product
-            </button>
+            <div className="actions">
+              <button type="reset" className="btn btn--6">
+                Reset
+              </button>
+
+              <button type="submit" className="btn btn--2">
+                Add Product
+                <i className="fa-solid fa-plus"></i>
+              </button>
+            </div>
           </fieldset>
         </form>
       </dialog>
 
       <p className="products-items-found">{products.length} Products found</p>
+
+      <div className="products-add-product">
+        {userRole === "ADMIN" && (
+          <button className="btn btn--2" onClick={() => openAddProductModal()}>
+            Add Product <i className="fa-solid fa-plus"></i>
+          </button>
+        )}
+      </div>
 
       <div className="products-container">
         {products.map((product) => (
@@ -188,8 +238,9 @@ const Products = () => {
                 >
                   <i
                     className={`fa-solid fa-heart ${
-                      wishListProductsIds.includes(product.id) &&
-                      "product-in-wishlist"
+                      wishListProductsIds.includes(product.id)
+                        ? "product-in-wishlist"
+                        : ""
                     }`}
                   ></i>
                 </button>

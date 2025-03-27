@@ -194,12 +194,16 @@ const Header = () => {
         <div className="auth">
           {user ? (
             <Link to="/login" onClick={logout} className="btn btn--4">
-              Logout
+              Logout<i className="fa-solid fa-right-from-bracket"></i>
             </Link>
           ) : (
-            <Link to="/login" className="btn btn--4">Login</Link>
+            <Link to="/login" className="btn btn--4">
+              Login<i className="fa-solid fa-right-to-bracket"></i>
+            </Link>
           )}
-          <Link to="/register" className="btn btn--1">Register</Link>
+          <Link to="/register" className="btn btn--1">
+            Register
+          </Link>
         </div>
       </nav>
     </header>

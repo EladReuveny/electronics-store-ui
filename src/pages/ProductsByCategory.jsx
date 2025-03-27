@@ -113,8 +113,9 @@ const ProductsByCategory = () => {
                 >
                   <i
                     className={`fa-solid fa-heart ${
-                      wishListProductsIds.includes(product.id) &&
-                      "product-in-wishlist"
+                      wishListProductsIds.includes(product.id)
+                        ? "product-in-wishlist"
+                        : ""
                     }`}
                   ></i>
                 </button>

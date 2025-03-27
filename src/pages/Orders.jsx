@@ -51,7 +51,7 @@ const Orders = () => {
     (order) => selectedStatus === "ALL" || order.status === selectedStatus
   );
 
-  const handleUpdatedOrderStatus = async (e, orderId) => {
+  const handleUpdateOrderStatus = async (e, orderId) => {
     try {
       const newOrderStatus = e.target.value;
       const updatedOrder = await updateOrderStatus(orderId, newOrderStatus);
@@ -60,8 +60,8 @@ const Orders = () => {
           order.id === orderId ? { ...order, status: newOrderStatus } : order
         ),
       ]);
-    } catch (e) {
-      console.error("Error updating order status:", e);
+    } catch (error) {
+      console.error("Error updating order status:", error);
     }
   };
 
@@ -119,10 +119,13 @@ const Orders = () => {
                   name="order-status"
                   id="order-status"
                   className={`btn order-status info-${order.status.toLowerCase()} `}
-                  value={order.status}
-                  onChange={(e) => handleUpdatedOrderStatus(e, order.id)}
+                  defaultValue={order.status}
+                  onChange={(e) => handleUpdateOrderStatus(e, order.id)}
                   disabled={userRole === "SUBSCRIBED"}
                 >
+                  <option value="" disabled>
+                    --- Status ---
+                  </option>
                   <option value="PENDING">Pending</option>
                   <option value="PACKAGING">Packaging</option>
                   <option value="SHIPPED">Shipped</option>

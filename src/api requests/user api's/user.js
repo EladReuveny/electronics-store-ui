@@ -54,11 +54,13 @@ export const registerUser = async (user) => {
  */
 export const updateUser = async (userId, userUpdateDTO) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/${userId}/update`, userUpdateDTO);
+    const response = await axios.put(
+      `${API_BASE_URL}/${userId}/update`,
+      userUpdateDTO
+    );
     return response.data;
   } catch (error) {
-    console.error(`Error updating user ${userId}:`, error);
-    throw error;
+    throw new Error(error.response.data);
   }
 };
 

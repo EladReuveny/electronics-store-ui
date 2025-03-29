@@ -1,25 +1,27 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   addProduct,
   getAllProducts,
 } from "../api requests/product api's/product";
-import { AuthContext } from "../context/AuthContext";
 import {
   addProductToWishList,
   getWishList,
   removeProductFromWishList,
 } from "../api requests/wishList api's/wishList";
-import { addProductToCart } from "../api requests/shoppingCart api's/shoppingCart";
+import useAuth from "../hooks/useAuth";
 
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [wishListProductsIds, setWishListProductsIds] = useState([]);
 
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
+
   const navigate = useNavigate();
-  const userRole = user?.role;
+
   const modalRef = useRef();
+
+  const userRole = user?.role;
 
   const categoryNames = {
     SMART_PHONE: "Smart Phone",

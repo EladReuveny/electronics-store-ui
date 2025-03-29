@@ -1,20 +1,28 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   getAllOrders,
+  getAllOrdersAsXML,
   getOrdersByUserId,
   updateOrderStatus,
 } from "../api requests/order api's/order";
-import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import StartShopping from "../components/StartShopping";
+import useAuth from "../hooks/useAuth";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
-  const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const userRole = user?.role;
+  const [selectedStatus, setSelectedStatus] = useState("ALL");
+  const [ordersXML, setOrdersXML] = useState();
   const [selectedOrder, setSelectedOrder] = useState(null);
+
+  const { user } = useAuth();
+
+  const navigate = useNavigate();
+
   const orderDetailsModal = useRef();
+  const orderXMLModal = useRef();
+
+  const userRole = user?.role;
 
   const statuses = [
     "ALL",
@@ -24,7 +32,6 @@ const Orders = () => {
     "DELIVERED",
     "CANCELED",
   ];
-  const [selectedStatus, setSelectedStatus] = useState("ALL");
 
   useEffect(() => {
     if (!user) {
@@ -50,6 +57,39 @@ const Orders = () => {
   const filteredOrders = [...orders].filter(
     (order) => selectedStatus === "ALL" || order.status === selectedStatus
   );
+
+  const handleGetAllOrdersAsXML = async () => {
+    try {
+      const ordersData = await getAllOrdersAsXML();
+
+      setOrdersXML(ordersData);
+
+      orderXMLModal.current?.showModal();
+    } catch (e) {
+      console.error("Error fetching orders as XML:", e);
+      alert("Error fetching or parsing XML");
+    }
+  };
+
+  const handleCloseOrderXMLModal = () => {
+    orderXMLModal.current.close();
+  };
+
+  const formatXml = (xmlString) => {
+    const xmlDoc = new DOMParser().parseFromString(
+      xmlString,
+      "application/xml"
+    );
+    let formattedXml = new XMLSerializer().serializeToString(xmlDoc);
+
+    formattedXml = formattedXml.replace(/(>)(<)(\/*)/g, "$1\n$2$3");
+    const indentation = formattedXml
+      .split("\n")
+      .map((line) => line.trimStart())
+      .join("\n");
+
+    return indentation;
+  };
 
   const handleUpdateOrderStatus = async (e, orderId) => {
     try {
@@ -85,6 +125,24 @@ const Orders = () => {
         <StartShopping text="You have no orders yet. Start Shopping." />
       ) : (
         <div className="orders-container">
+          <div className="tracking-orders">
+            <h2>Tracking Orders</h2>
+            {userRole === "ADMIN" && (
+              <button className="btn btn--2" onClick={handleGetAllOrdersAsXML}>
+                View All Orders (XML)
+              </button>
+            )}
+          </div>
+
+          <dialog ref={orderXMLModal} className="orders-xml-modal">
+            <button className="btn btn--3" onClick={handleCloseOrderXMLModal}>
+              <i className="fa-solid fa-circle-xmark" title="Close"></i>
+            </button>
+
+            <h2>All Orders (XML)</h2>
+            <pre>{ordersXML}</pre>
+          </dialog>
+
           <div className="filter-by-status">
             {statuses.map((status, index) => (
               <button

@@ -1,18 +1,20 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   checkout,
   clearCart,
   getCartByUserId,
   removeProductFromCart,
 } from "../api requests/shoppingCart api's/shoppingCart";
-import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import StartShopping from "../components/StartShopping";
+import useAuth from "../hooks/useAuth";
 
 const ShoppingCart = () => {
   const [cart, setCart] = useState({});
+
   const navigate = useNavigate();
-  const { user } = useContext(AuthContext);
+  
+  const { user } = useAuth()
 
   useEffect(() => {
     if (!user) {

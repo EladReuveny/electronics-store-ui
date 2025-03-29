@@ -1,8 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import DarkModeProvider, { DarkModeContext } from "../context/DarkModeProvider";
+import useDarkMode from "../hooks/useDarkMode";
 
 const ToggleSwitch = ({ purpose, text, defaultVal = true }) => {
-  const { isDarkMode, toggleDarkMode} = useContext(DarkModeContext)
+  const { isDarkMode, toggleDarkMode} = useDarkMode()
 
   return (
     <div className="toggle-switch">

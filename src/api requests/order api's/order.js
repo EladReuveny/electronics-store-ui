@@ -54,3 +54,22 @@ export const getAllOrders = async () => {
     throw error;
   }
 };
+
+/**
+ * Fetch all orders
+ * @returns {Promise<Array>} All orders (XML format)
+ */
+export const getAllOrdersAsXML = async () => {
+  try {
+    const response = await axios.get(`${API_BASE_URL}/all/xml-format`, {
+      headers: {
+        Accept: "application/xml", 
+      },
+      responseType: "text", 
+    });
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching all orders:", error);
+    throw error;
+  }
+};

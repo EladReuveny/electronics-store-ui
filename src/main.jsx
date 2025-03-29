@@ -6,11 +6,11 @@ import { AuthProvider } from "./context/AuthContext.jsx";
 import DarkModeProvider from "./context/DarkModeProvider.jsx";
 
 createRoot(document.getElementById("root")).render(
-  <DarkModeProvider>
-    <AuthProvider>
-      <StrictMode>
+  <StrictMode>
+    <DarkModeProvider>
+      <AuthProvider>
         <App />
-      </StrictMode>
-    </AuthProvider>
-  </DarkModeProvider>
+      </AuthProvider>
+    </DarkModeProvider>
+  </StrictMode>
 );

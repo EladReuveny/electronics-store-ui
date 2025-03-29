@@ -1,19 +1,19 @@
-import React, { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../context/AuthContext";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
-  addProductToWishList,
   clearWishList,
   getWishList,
   moveToShoppingCart,
   removeProductFromWishList,
 } from "../api requests/wishList api's/wishList";
 import StartShopping from "../components/StartShopping";
-import { addProductToCart } from "../api requests/shoppingCart api's/shoppingCart";
+import useAuth from "../hooks/useAuth";
 
 const WishList = () => {
   const [wishList, setWishList] = useState({});
-  const { user } = useContext(AuthContext);
+
+  const { user } = useAuth();
+
   const navigate = useNavigate();
 
   const categoryNames = {

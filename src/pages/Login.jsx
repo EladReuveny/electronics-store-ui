@@ -1,12 +1,12 @@
-import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { loginUser } from "../api requests/user api's/user";
-import { AuthContext } from "../context/AuthContext";
-import Logo from "../components/Logo";
 import Form from "../components/Form";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
-  const { login } = useContext(AuthContext);
+  const { login } = useAuth();
+
   const navigate = useNavigate();
 
   const handleSubmit = async (e) => {
@@ -22,9 +22,10 @@ const Login = () => {
 
       if (authinticatedUserDetails) {
         login(authinticatedUserDetails);
-        navigate("/products");
+        navigate(-1);
       }
     } catch (e) {
+      alert(e.response?.data);
       console.error("Error logging in user:", e);
     }
   };

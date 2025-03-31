@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Form = ({
@@ -7,6 +7,12 @@ const Form = ({
   submitBtnText = "",
   links = [],
 }) => {
+  const [showPassword, setShowPassword] = useState(false);
+
+  const toggleShowPassword = () => {
+    setShowPassword((prev) => !prev);
+  };
+
   return (
     <form className="form" onSubmit={(e) => handleSubmit(e)}>
       <fieldset className="fieldset">
@@ -14,7 +20,9 @@ const Form = ({
         {fields.map((field, index) => (
           <div key={index} className="field">
             <input
-              type={field.type}
+              type={
+                field.type === "password" && showPassword ? "text" : field.type
+              }
               id={field.id}
               name={field.name}
               placeholder=""
@@ -24,11 +32,18 @@ const Form = ({
             <label htmlFor={field.id}>
               {field.id.charAt(0).toUpperCase() + field.id.slice(1)}
             </label>
+            {field.type === "password" && (
+              <i
+                className={`fa-solid fa-eye${showPassword ? "-slash" : ""}`}
+                onClick={toggleShowPassword}
+              ></i>
+            )}
           </div>
         ))}
 
         <button type="submit" className="btn btn--2">
-          {submitBtnText}<i className="fa-solid fa-right-to-bracket"></i>
+          {submitBtnText}
+          <i className="fa-solid fa-right-to-bracket"></i>
         </button>
 
         <div className="account-options">

@@ -1,67 +1,55 @@
-import axios from "axios";
-import React, { useContext, useRef, useState } from "react";
-import { Link } from "react-router-dom";
-import { AuthContext } from "../context/AuthContext";
+import React, { useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import Logo from "./Logo";
+import useAuth from "../hooks/useAuth";
+import ToggleSwitch from "./ToggleSwitch";
 
 const Header = () => {
-  const [products, setProducts] = useState([]);
-  const [searchValue, setSearchValue] = useState("");
+  const [hideOutOfStock, setHideOutOfStock] = useState(false);
 
-  const { user, logout } = useContext(AuthContext);
+  const { user, logout } = useAuth();
 
   const searchModal = useRef();
-  const searchInput = useRef();
-  const sortBySelect = useRef();
-  const outOfStockCheckbox = useRef();
+
+  const navigate = useNavigate();
 
   const openSearchModal = () => {
     if (searchModal.current) {
       searchModal.current.showModal();
-      searchInput.current.focus();
+      const searchInput = searchModal.current.querySelector("input#query");
+      searchInput.focus();
     }
   };
 
   const closeSearchModal = () => {
     if (searchModal.current) {
       searchModal.current.close();
-      setSearchValue("");
       setProducts([]);
     }
   };
 
-  const searchProduct = async () => {
+  const handleSearchProducts = (e) => {
+    e.preventDefault();
+
     try {
-      const query = searchValue.trim();
+      const query = e.target.query.value.trim();
+
       if (!query) {
         console.warn("Search query is empty.");
-        setProducts([]);
         return;
       }
 
-      const response = await axios.get(
-        `http://localhost:8080/api/v1/products/search?query=${query}`
+      const sortBySelectVal = e.target["sort-by"].value;
+      const isHideOutOfStockCheckboxChecked =
+        e.target["hide-out-of-stock"].checked;
+
+      navigate(
+        `/products?query=${query}` +
+          (sortBySelectVal
+            ? `&sort=${sortBySelectVal === "ascending-order" ? "asc" : "desc"}`
+            : "") +
+          (isHideOutOfStockCheckboxChecked ? `&hideOutOfStock=true` : "")
       );
-
-      let filteredProducts = response.data;
-
-      const sortBySelectVal = sortBySelect.current.value;
-
-      if (sortBySelectVal) {
-        filteredProducts = [...filteredProducts].sort((a, b) =>
-          sortBySelectVal === "ascending-order"
-            ? a.price - b.price
-            : b.price - a.price
-        );
-      }
-
-      if (outOfStockCheckbox.current.checked) {
-        filteredProducts = filteredProducts.filter(
-          (product) => product.stockQuantity > 0
-        );
-      }
-
-      setProducts(filteredProducts);
     } catch (error) {
       console.error("Error searching for products:", error);
     }
@@ -83,71 +71,61 @@ const Header = () => {
           </div>
 
           <dialog ref={searchModal} className="search-modal">
-            <h1>Search for a product</h1>
-            <button className="btn btn--close" onClick={closeSearchModal}>
-              <i className="fa-solid fa-times"></i>
+            <button className="btn btn--3" onClick={closeSearchModal}>
+              <i className="fa-solid fa-circle-xmark" title="Close"></i>
             </button>
-            <input
-              id="search-input"
-              type="text"
-              ref={searchInput}
-              value={searchValue}
-              onChange={(e) => setSearchValue(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") {
-                  searchProduct();
-                }
-              }}
-              placeholder="Type to search for a product"
-              autoFocus
-            />
-            <button className="search-btn" onClick={searchProduct}>
-              Search
-            </button>
-            <details className="advanced-search-filters">
-              <summary>Advanced Search Filters</summary>
-              <div className="filters">
-                <div className="filters-sort-by">
-                  <label htmlFor="sort-by">Sort by (price):</label>
-                  <select
-                    ref={sortBySelect}
-                    name="sort-by"
-                    id="sort-by"
-                    defaultValue=""
-                  >
-                    <option value="" disabled>
-                      --- Select an order ---
-                    </option>
-                    <option value="ascending-order">Low to high</option>
-                    <option value="descending-order">High to low</option>
-                  </select>
-                </div>
 
-                <div className="filters-out-of-stock">
-                  <label htmlFor="out-of-stock">Hide out of stock</label>
-                  <input
-                    ref={outOfStockCheckbox}
-                    type="checkbox"
-                    id="out-of-stock"
-                    name="out-of-stock"
-                  />
-                </div>
+            <h1>Search</h1>
+
+            <form className="form" onSubmit={(e) => handleSearchProducts(e)}>
+              <div className="search-input">
+                <input
+                  type="search"
+                  id="query"
+                  name="query"
+                  placeholder="Search..."
+                  autoFocus
+                />
+
+                <button className="btn" type="submit">
+                  <i className="fa-solid fa-search" />
+                </button>
               </div>
-            </details>
 
-            {products.length > 0 ? (
-              products.map((product) => (
-                <div key={product.id} className="product">
-                  <Link to={`/products/product/${product.id}`}>
-                    <img src={product.imgUrl} alt={product.name} />
-                    <h2>{product.name}</h2>
-                    <p>Price: ${product.price}</p>
-                  </Link>
+              <details className="advanced-search-filters">
+                <summary className="btn btn--4">
+                  <span className="material-symbols-outlined">tune</span>
+                  Filters
+                </summary>
+
+                <div className="filters">
+                  <div className="sort-by-filter">
+                    <label htmlFor="sort-by">Sort by (price):</label>
+                    <select
+                      id="sort-by"
+                      name="sort-by"
+                      className="btn btn--1"
+                      defaultValue=""
+                    >
+                      <option value="" disabled>
+                        --- Select an order ---
+                      </option>
+                      <option value="ascending-order">Low to high</option>
+                      <option value="descending-order">High to low</option>
+                    </select>
+                  </div>
+
+                  <div className="out-of-stock-filter">
+                    <ToggleSwitch
+                      id={"hide-out-of-stock"}
+                      text={"Hide out of stock: "}
+                      isChecked={hideOutOfStock}
+                      onChange={(e) => setHideOutOfStock(e.target.checked)}
+                    />
+                  </div>
                 </div>
-              ))
-            ) : (
-              <p>No products found.</p>
-            )}
+              </details>
+            </form>
           </dialog>
         </div>
 

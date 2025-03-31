@@ -1,5 +1,4 @@
-import axios from "axios";
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import { getProductsByCategory } from "../api requests/product api's/product";
 import {
@@ -7,14 +6,16 @@ import {
   getWishList,
   removeProductFromWishList,
 } from "../api requests/wishList api's/wishList";
-import { AuthContext } from "../context/AuthContext";
+import useAuth from "../hooks/useAuth";
 
 const ProductsByCategory = () => {
   const [products, setProducts] = useState([]);
   const [wishListProductsIds, setWishListProductsIds] = useState([]);
 
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
+
   const navigate = useNavigate();
+
   let { category } = useParams();
 
   const fromCategoryToCategoryNames = {

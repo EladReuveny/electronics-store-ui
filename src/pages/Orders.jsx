@@ -1,20 +1,29 @@
-import React, { useContext, useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
+  cancelOrder,
   getAllOrders,
+  getAllOrdersAsXML,
   getOrdersByUserId,
   updateOrderStatus,
 } from "../api requests/order api's/order";
-import { AuthContext } from "../context/AuthContext";
 import { Link, useNavigate } from "react-router-dom";
 import StartShopping from "../components/StartShopping";
+import useAuth from "../hooks/useAuth";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);
-  const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
-  const userRole = user?.role;
+  const [selectedStatus, setSelectedStatus] = useState("ALL");
+  const [ordersXML, setOrdersXML] = useState();
   const [selectedOrder, setSelectedOrder] = useState(null);
+
+  const { user } = useAuth();
+
+  const navigate = useNavigate();
+
   const orderDetailsModal = useRef();
+  const orderXMLModal = useRef();
+
+  const userRole = user?.role;
 
   const statuses = [
     "ALL",
@@ -24,7 +33,6 @@ const Orders = () => {
     "DELIVERED",
     "CANCELED",
   ];
-  const [selectedStatus, setSelectedStatus] = useState("ALL");
 
   useEffect(() => {
     if (!user) {
@@ -51,6 +59,23 @@ const Orders = () => {
     (order) => selectedStatus === "ALL" || order.status === selectedStatus
   );
 
+  const handleGetAllOrdersAsXML = async () => {
+    try {
+      const ordersData = await getAllOrdersAsXML();
+
+      setOrdersXML(ordersData);
+
+      orderXMLModal.current?.showModal();
+    } catch (e) {
+      console.error("Error fetching orders as XML:", e);
+      alert("Error fetching or parsing XML");
+    }
+  };
+
+  const handleCloseOrderXMLModal = () => {
+    orderXMLModal.current.close();
+  };
+
   const handleUpdateOrderStatus = async (e, orderId) => {
     try {
       const newOrderStatus = e.target.value;
@@ -62,6 +87,24 @@ const Orders = () => {
       ]);
     } catch (error) {
       console.error("Error updating order status:", error);
+    }
+  };
+
+  const handleCancelOrder = async (orderToCancel) => {
+    try {
+      if (
+        confirm(
+          "Are you sure you want to cancel this order?\n\nNote: Orders can only be canceled within 14 days start from the order date."
+        )
+      ) {
+        const response = await cancelOrder(orderToCancel.id);
+        setOrders((prevOrders) => [
+          ...prevOrders.filter((order) => order.id !== orderToCancel.id),
+        ]);
+        orderDetailsModal.current.close();
+      }
+    } catch (error) {
+      console.error("Error canceling order:", error);
     }
   };
 
@@ -85,6 +128,24 @@ const Orders = () => {
         <StartShopping text="You have no orders yet. Start Shopping." />
       ) : (
         <div className="orders-container">
+          <div className="tracking-orders">
+            <h2>Tracking Orders</h2>
+            {userRole === "ADMIN" && (
+              <button className="btn btn--2" onClick={handleGetAllOrdersAsXML}>
+                View All Orders (XML)
+              </button>
+            )}
+          </div>
+
+          <dialog ref={orderXMLModal} className="orders-xml-modal">
+            <button className="btn btn--3" onClick={handleCloseOrderXMLModal}>
+              <i className="fa-solid fa-circle-xmark" title="Close"></i>
+            </button>
+
+            <h2>All Orders (XML)</h2>
+            <pre>{ordersXML}</pre>
+          </dialog>
+
           <div className="filter-by-status">
             {statuses.map((status, index) => (
               <button
@@ -151,9 +212,14 @@ const Orders = () => {
         {selectedOrder && (
           <div className="order">
             <div className="header">
-              <button className="btn btn--5" title="Cancel Order">
+              <button
+                className="btn btn--5"
+                title="Cancel Order"
+                onClick={() => handleCancelOrder(selectedOrder)}
+              >
                 Cancel Order
               </button>
+
               <div className="title">
                 <h2>Order #{selectedOrder.id}</h2>
                 <p

@@ -1,20 +1,17 @@
-import React, { useContext, useEffect, useState } from "react";
-import DarkModeProvider, { DarkModeContext } from "../context/DarkModeProvider";
+import React from "react";
 
-const ToggleSwitch = ({ purpose, text, defaultVal = true }) => {
-  const { isDarkMode, toggleDarkMode} = useContext(DarkModeContext)
-
+const ToggleSwitch = ({ id, text, isChecked, onChange }) => {
   return (
     <div className="toggle-switch">
-      {text}
+      <span>{text}</span>
       <input
         type="checkbox"
-        id={purpose}
-        name={purpose}
-        checked={isDarkMode}
-        onChange={toggleDarkMode}
+        id={id}
+        name={id}
+        checked={isChecked}
+        onChange={onChange}
       />
-      <label htmlFor={purpose}></label>
+      <label htmlFor={id}></label>
     </div>
   );
 };

@@ -31,11 +31,7 @@ export const addProductToCart = async (userId, productId, quantity) => {
     );
     return response.data;
   } catch (error) {
-    console.error(
-      `Error adding product ${productId} to cart for user ${userId}:`,
-      error
-    );
-    throw error;
+    throw new Error(error.response.data);
   }
 };
 
@@ -111,4 +107,4 @@ export const updateItemQuantity = async (userId, itemId, quantity) => {
     );
     throw error;
   }
-}
+};

@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { getProductById } from "../api requests/product api's/product";
 import {
@@ -7,15 +7,17 @@ import {
   removeProductFromWishList,
 } from "../api requests/wishList api's/wishList";
 import { addProductToCart } from "../api requests/shoppingCart api's/shoppingCart";
-import { AuthContext } from "../context/AuthContext";
+import useAuth from "../hooks/useAuth";
 
 const ProductDetails = () => {
   const [product, setProduct] = useState({});
   const [wishListProductsIds, setWishListProductsIds] = useState([]);
   const [quantity, setQuantity] = useState(1);
 
-  const { user } = useContext(AuthContext);
+  const { user } = useAuth();
+
   const { productId } = useParams();
+
   const navigate = useNavigate();
 
   const categoryNames = {
@@ -91,7 +93,8 @@ const ProductDetails = () => {
       const updatedCart = await addProductToCart(user.id, productId, quantity);
       alert("Successfully has been added!");
     } catch (error) {
-      console.error("Error adding product to cart");
+      alert(error);
+      console.error("Error adding product to cart", error);
     }
   };
 

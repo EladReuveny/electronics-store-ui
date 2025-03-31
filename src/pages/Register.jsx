@@ -1,12 +1,13 @@
-import React, { useContext } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React from "react";
+import { useNavigate } from "react-router-dom";
 import { registerUser } from "../api requests/user api's/user";
-import { AuthContext } from "../context/AuthContext";
 import Form from "../components/Form";
+import useAuth from "../hooks/useAuth";
 
 const Register = () => {
   const navigate = useNavigate();
-  const { login } = useContext(AuthContext);
+
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,10 +21,10 @@ const Register = () => {
 
     try {
       const registeredUser = await registerUser(user);
-      alert(`User ${registeredUser.email} registered successfully!`);
       login(registeredUser);
       navigate("/products");
     } catch (e) {
+      alert(e.response?.data);
       console.error("Error registering user:", e);
     }
   };

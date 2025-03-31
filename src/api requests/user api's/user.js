@@ -60,7 +60,7 @@ export const updateUser = async (userId, userUpdateDTO) => {
     );
     return response.data;
   } catch (error) {
-    throw new Error(error.response.data);
+    throw new Error(error.response?.data);
   }
 };
 

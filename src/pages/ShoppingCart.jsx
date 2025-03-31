@@ -13,8 +13,8 @@ const ShoppingCart = () => {
   const [cart, setCart] = useState({});
 
   const navigate = useNavigate();
-  
-  const { user } = useAuth()
+
+  const { user } = useAuth();
 
   useEffect(() => {
     if (!user) {
@@ -56,8 +56,10 @@ const ShoppingCart = () => {
 
   const handleCheckout = async (userId) => {
     try {
-      const orderData = await checkout(userId);
-      navigate("/orders");
+      if (confirm("Are you sure you want to confirm the order?")) {
+        const orderData = await checkout(userId);
+        navigate("/orders");
+      }
     } catch (e) {
       console.error("Error checking out:", e);
     }

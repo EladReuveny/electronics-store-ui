@@ -73,11 +73,8 @@ export const moveToShoppingCart = async (userId, productId, quantity) => {
     );
     return response.data;
   } catch (error) {
-    console.error(
-      `Error moving product ${productId} from wishlist to cart for user ${userId}:`,
-      error
-    );
-    throw error;
+    console.error("Error adding product to cart: ", error.message);
+    throw new Error(error.response.data);
   }
 };
 
@@ -88,10 +85,12 @@ export const moveToShoppingCart = async (userId, productId, quantity) => {
  */
 export const clearWishList = async (userId) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/user/${userId}/clear-wishlist`);
+    const response = await axios.put(
+      `${API_BASE_URL}/user/${userId}/clear-wishlist`
+    );
     return response.data;
   } catch (error) {
     console.error(`Error clearing wishlist for user ${userId}:`, error);
     throw error;
   }
-}
+};

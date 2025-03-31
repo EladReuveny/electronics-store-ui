@@ -3,12 +3,15 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { updateUser } from "../api requests/user api's/user";
 import ToggleSwitch from "../components/ToggleSwitch";
 import useAuth from "../hooks/useAuth";
+import useDarkMode from "../hooks/useDarkMode";
 
 const Profile = () => {
   const [editProfileInformation, setEditProfileInformation] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
   const { user, setUser } = useAuth();
+
+  const { isDarkMode, toggleDarkMode } = useDarkMode();
 
   const navigate = useNavigate();
 
@@ -253,7 +256,12 @@ const Profile = () => {
             <fieldset className="fieldset">
               <legend>Display</legend>
 
-              <ToggleSwitch purpose="dark-mode" text="Dark Mode: " />
+              <ToggleSwitch
+                id={"dark-mode"}
+                text={"Dark Mode: "}
+                isChecked={isDarkMode}
+                onChange={toggleDarkMode}
+              />
             </fieldset>
           </div>
         </main>

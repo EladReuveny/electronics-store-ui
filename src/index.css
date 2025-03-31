@@ -225,6 +225,77 @@ select:focus {
   display: flex;
   gap: 20px;
 }
+.header-navbar .search-modal {
+  width: 80%;
+  height: 100%;
+  padding-inline: 30px;
+  position: relative;
+}
+.header-navbar .search-modal > h1 {
+  margin-block: -40px 40px;
+  font-size: 1.8rem;
+  border-bottom: 3px solid var(--secondary-clr);
+}
+.header-navbar .search-modal .form {
+  flex-direction: column;
+  gap: 20px;
+}
+.header-navbar .search-modal .search-input {
+  width: 100%;
+  position: relative;
+}
+.header-navbar .search-modal .search-input input[type="search"] {
+  width: 100%;
+  border-radius: 25px;
+  padding: 10px 20px;
+  font-size: 1.25rem;
+  border: 3px solid transparent;
+  outline: none;
+  transition: 0.3s;
+}
+.header-navbar .search-modal .search-input input[type="search"]:focus {
+  border-color: var(--primary-clr);
+  box-shadow: 0 0 10px 0px var(--primary-clr);
+}
+.header-navbar .search-modal .search-input button:first-of-type {
+  position: absolute;
+  right: 5px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  color: var(--primary-clr);
+  font-size: 1.25rem;
+  cursor: pointer;
+}
+.header-navbar .search-modal .search-input button:first-of-type:hover {
+  opacity: 0.8;
+}
+.header-navbar .search-modal .advanced-search-filters summary {
+  list-style: none;
+  width: fit-content;
+}
+.header-navbar .search-modal .advanced-search-filters {
+  appearance: none;
+  align-self: flex-start;
+}
+.header-navbar .search-modal .advanced-search-filters span:first-of-type {
+  margin-right: 10px;
+  vertical-align: middle;
+}
+.header-navbar .search-modal .advanced-search-filters .filters {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+  margin-top: 15px;
+}
+.header-navbar
+  .search-modal
+  .advanced-search-filters
+  .filters
+  .sort-by-filter
+  select {
+  margin-left: 20px;
+}
 
 /* -------------- Section's title  -------------- */
 .section-title {
@@ -392,7 +463,7 @@ select:focus {
   align-items: stretch;
   gap: 50px;
   font-size: 1.25rem;
-  margin-top: -15px;
+  margin-top: -5px;
 }
 .product .product-details-container .product-image-container {
   background: hsl(from var(--primary-clr) h s l / 0.3);
@@ -755,7 +826,7 @@ body.dark-mode .btn--3:hover {
   display: flex;
   gap: 30px;
   align-items: center;
-  padding-bottom: 10px;
+  padding-bottom: 20px;
   border-bottom: 2px solid var(--primary-clr);
 }
 .orders .order-details-dialog .details > p {
@@ -808,13 +879,13 @@ body.dark-mode .btn--3:hover {
   object-fit: contain;
   border-radius: 50%;
 }
-.orders .orders-xml-modal h2:first-of-type{
+.orders .orders-xml-modal h2:first-of-type {
   border-bottom: 3px solid var(--secondary-clr);
   text-align: center;
   margin-bottom: 20px;
 }
 .orders .orders-xml-modal pre:first-of-type {
-  background-color: hsl(from var(--primary-clr) h s l / .3);
+  background-color: hsl(from var(--primary-clr) h s l / 0.3);
   padding: 10px 20px;
 }
 
@@ -1039,7 +1110,7 @@ body.dark-mode .btn--3:hover {
   display: inline-block;
   position: relative;
   border: 1px solid var(--text-clr);
-  margin-left: 35px;
+  margin-left: 15px;
   vertical-align: middle;
   cursor: pointer;
   transition: 0.3s;

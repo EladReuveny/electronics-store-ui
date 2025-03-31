@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
   addProduct,
   getAllProducts,
+  searchProductsByName,
 } from "../api requests/product api's/product";
 import {
   addProductToWishList,
@@ -21,6 +22,12 @@ const Products = () => {
 
   const modalRef = useRef();
 
+  const [searchParams] = useSearchParams();
+
+  const query = searchParams.get("query");
+  const sortBy = searchParams.get("sort");
+  const hideOutOfStock = searchParams.get("hideOutOfStock");
+
   const userRole = user?.role;
 
   const categoryNames = {
@@ -31,6 +38,28 @@ const Products = () => {
   };
 
   useEffect(() => {
+    const handleSearchProducts = async () => {
+      try {
+        let searchResults = await searchProductsByName(query);
+
+        if (sortBy) {
+          searchResults = [...searchResults].sort((a, b) =>
+            sortBy === "asc" ? a.price - b.price : b.price - a.price
+          );
+        }
+
+        if (hideOutOfStock) {
+          searchResults = [...searchResults].filter(
+            (product) => product.stockQuantity > 0
+          );
+        }
+
+        setProducts(searchResults);
+      } catch (error) {
+        console.error("Error searching products:", error);
+      }
+    };
+
     const fetchAllProducts = async () => {
       try {
         const productData = await getAllProducts();
@@ -38,6 +67,7 @@ const Products = () => {
 
         if (user) {
           const wishListData = await getWishList(user.id);
+
           setWishListProductsIds(
             wishListData.products.map((product) => product.id)
           );
@@ -47,8 +77,12 @@ const Products = () => {
       }
     };
 
-    fetchAllProducts();
-  }, []);
+    if (query) {
+      handleSearchProducts();
+    } else {
+      fetchAllProducts();
+    }
+  }, [query, sortBy, hideOutOfStock]);
 
   const handleAddProductToWishList = async (e, user, productId) => {
     e.preventDefault();

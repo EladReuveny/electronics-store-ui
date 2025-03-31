@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
+  cancelOrder,
   getAllOrders,
   getAllOrdersAsXML,
   getOrdersByUserId,
@@ -75,22 +76,6 @@ const Orders = () => {
     orderXMLModal.current.close();
   };
 
-  const formatXml = (xmlString) => {
-    const xmlDoc = new DOMParser().parseFromString(
-      xmlString,
-      "application/xml"
-    );
-    let formattedXml = new XMLSerializer().serializeToString(xmlDoc);
-
-    formattedXml = formattedXml.replace(/(>)(<)(\/*)/g, "$1\n$2$3");
-    const indentation = formattedXml
-      .split("\n")
-      .map((line) => line.trimStart())
-      .join("\n");
-
-    return indentation;
-  };
-
   const handleUpdateOrderStatus = async (e, orderId) => {
     try {
       const newOrderStatus = e.target.value;
@@ -102,6 +87,24 @@ const Orders = () => {
       ]);
     } catch (error) {
       console.error("Error updating order status:", error);
+    }
+  };
+
+  const handleCancelOrder = async (orderToCancel) => {
+    try {
+      if (
+        confirm(
+          "Are you sure you want to cancel this order?\n\nNote: Orders can only be canceled within 14 days start from the order date."
+        )
+      ) {
+        const response = await cancelOrder(orderToCancel.id);
+        setOrders((prevOrders) => [
+          ...prevOrders.filter((order) => order.id !== orderToCancel.id),
+        ]);
+        orderDetailsModal.current.close();
+      }
+    } catch (error) {
+      console.error("Error canceling order:", error);
     }
   };
 
@@ -209,9 +212,14 @@ const Orders = () => {
         {selectedOrder && (
           <div className="order">
             <div className="header">
-              <button className="btn btn--5" title="Cancel Order">
+              <button
+                className="btn btn--5"
+                title="Cancel Order"
+                onClick={() => handleCancelOrder(selectedOrder)}
+              >
                 Cancel Order
               </button>
+
               <div className="title">
                 <h2>Order #{selectedOrder.id}</h2>
                 <p

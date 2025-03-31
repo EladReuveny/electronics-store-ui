@@ -77,7 +77,7 @@ const WishList = () => {
       setWishList(updatedWishListData);
       alert("Successfully added!");
     } catch (error) {
-      console.error("Error adding product to cart");
+      alert(error.message);
     }
   };
 

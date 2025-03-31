@@ -93,7 +93,8 @@ const ProductDetails = () => {
       const updatedCart = await addProductToCart(user.id, productId, quantity);
       alert("Successfully has been added!");
     } catch (error) {
-      console.error("Error adding product to cart");
+      alert(error);
+      console.error("Error adding product to cart", error);
     }
   };
 

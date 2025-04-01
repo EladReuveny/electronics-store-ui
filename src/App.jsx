@@ -11,6 +11,7 @@ import ShoppingCart from "./pages/ShoppingCart";
 import WishList from "./pages/WishList";
 import Orders from "./pages/Orders";
 import Profile from "./pages/Profile";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const App = () => {
   return (
@@ -31,6 +32,7 @@ const App = () => {
           />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/wishlist" element={<WishList />} />
           <Route path="/shopping-cart" element={<ShoppingCart />} />
           <Route path="/orders" element={<Orders />} />

@@ -1,5 +1,5 @@
 import React from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { loginUser } from "../api requests/user api's/user";
 import Form from "../components/Form";
 import useAuth from "../hooks/useAuth";
@@ -8,6 +8,8 @@ const Login = () => {
   const { login } = useAuth();
 
   const navigate = useNavigate();
+
+  const { email } = useLocation().state || {};
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -22,7 +24,7 @@ const Login = () => {
 
       if (authinticatedUserDetails) {
         login(authinticatedUserDetails);
-        navigate(-1);
+        navigate("/products");
       }
     } catch (e) {
       alert(e.response?.data);
@@ -42,6 +44,7 @@ const Login = () => {
             type: "email",
             id: "email",
             name: "email",
+            defaultValue: email,
           },
           {
             type: "password",
@@ -53,7 +56,7 @@ const Login = () => {
         submitBtnText={"Login"}
         links={[
           {
-            to: "/",
+            to: "/forgot-password",
             text: "Forgot Password?",
             for: "forgot-password",
           },

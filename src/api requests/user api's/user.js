@@ -80,8 +80,7 @@ export const deleteUser = async (userId) => {
 
 /**
  * Log in user.
- * @param {string} email
- * @param {string} password
+ * @param {Object} userLoginDTO
  * @returns {Promise<Object>} Authenticated user details
  */
 export const loginUser = async (userLoginDTO) => {
@@ -91,5 +90,23 @@ export const loginUser = async (userLoginDTO) => {
   } catch (error) {
     console.error("Error logging in user:", error);
     throw error;
+  }
+};
+
+/**
+ * Retrieve user's password.
+ * @param {Object} userForgotPasswordDTO
+ * @returns {Promise<Object>} Authenticated user details
+ */
+export const forgotPassword = async (userForgotPasswordDTO) => {
+  try {
+    const response = await axios.post(
+      `${API_BASE_URL}/forgot-password`,
+      userForgotPasswordDTO
+    );
+    return response.data;
+  } catch (error) {
+    console.error("Error retrieve user's password:", error);
+    throw error.response?.data
   }
 };

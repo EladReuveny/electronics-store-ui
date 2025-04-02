@@ -34,7 +34,7 @@ export const getProductById = async (productId) => {
 /**
  * Add a new product
  * @param {Object} product
- * @returns {Promise<Object>} Created product
+ * @returns {Promise<Object>} Added product
  */
 export const addProduct = async (product) => {
   try {
@@ -42,7 +42,7 @@ export const addProduct = async (product) => {
     return response.data;
   } catch (error) {
     console.error("Error adding product:", error);
-    throw error;
+    throw error.response?.data;
   }
 };
 
@@ -103,5 +103,21 @@ export const searchProductsByName = async (query) => {
   } catch (error) {
     console.error(`Error searching products with query "${query}":`, error);
     throw error;
+  }
+};
+
+/**
+ * Delete selected products
+ * 
+ * @param {Array} selectedProductsIds A list of product IDs to be removed.
+ * @returns {Promise<Object>} A response message confirming deletion.
+ */
+export const removeSelectedProducts = async (selectedProductsIds) => {
+  try {
+    const response = await axios.put(`${API_BASE_URL}/remove-selected-products`, selectedProductsIds);
+    return response.data;
+  } catch (error) {
+    console.error("Error removing selected products:", error);
+    throw error.response?.data;
   }
 };

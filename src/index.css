@@ -360,6 +360,37 @@ select:focus {
 .products .product .add-to-wishlist-btn i.product-in-wishlist {
   color: var(--secondary-clr);
 }
+.products .product-image-container input#marking-product {
+  display: none;
+}
+.products .product-image-container input#marking-product + label {
+  width: 25px;
+  height: 25px;
+  border: 2px solid var(--text-clr);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  right: 0;
+  cursor: pointer;
+  transition: .3s;
+}
+.products .product-image-container input#marking-product + label i {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  visibility: hidden;
+  opacity: 0;
+  transition: .3s;
+}
+.products .product-image-container input#marking-product:checked + label {
+  background: var(--text-clr);
+  color: var(--bg-clr);
+}
+.products .product-image-container input#marking-product:checked + label i {
+  visibility: visible;
+  opacity: 1;
+}
 .products .product-name {
   color: var(--secondary-clr);
 }
@@ -367,8 +398,9 @@ select:focus {
   color: var(--text-clr-darker);
   font-size: 1.2rem;
 }
-.products .products-add-product {
-  text-align: center;
+.products .admin-actions {
+  display: flex;
+  justify-content: space-between;
   margin-bottom: 20px;
 }
 .products .products-add-product-dialog {
@@ -663,6 +695,12 @@ body.dark-mode .btn--3:hover {
   background: var(--text-clr);
   color: var(--box-shadow-effect-clr-2);
   box-shadow: 0 0 20px 5px var(--box-shadow-effect-clr-2);
+}
+.btn--5:disabled {
+  background: hsl(from var(--box-shadow-effect-clr-2) h s l / .4);
+  color: var(--bg-clr);
+  cursor: not-allowed;
+  box-shadow: none;
 }
 .btn--6 {
   background: var(--text-clr);

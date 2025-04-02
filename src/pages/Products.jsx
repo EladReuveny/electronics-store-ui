@@ -3,6 +3,7 @@ import { Link, useNavigate, useSearchParams } from "react-router-dom";
 import {
   addProduct,
   getAllProducts,
+  removeSelectedProducts,
   searchProductsByName,
 } from "../api requests/product api's/product";
 import {
@@ -15,6 +16,7 @@ import useAuth from "../hooks/useAuth";
 const Products = () => {
   const [products, setProducts] = useState([]);
   const [wishListProductsIds, setWishListProductsIds] = useState([]);
+  const [markedProductsIds, setMarkedProductsIds] = useState([]);
 
   const { user } = useAuth();
 
@@ -136,13 +138,46 @@ const Products = () => {
     };
 
     try {
-      const createdProduct = await addProduct(product);
-      setProducts((prevProducts) => [...prevProducts, createdProduct]);
-      alert("Product added successfully!");
+      const addedProduct = await addProduct(product);
+      setProducts((prevProducts) => [...prevProducts, addedProduct]);
+      alert("Product has been added successfully!");
       event.target.reset();
       closeAddProductModal();
     } catch (error) {
-      console.error(error.message);
+      alert(error);
+    }
+  };
+
+  const handleMarkingProduct = (e, productId) => {
+    e.preventDefault();
+
+    if (markedProductsIds.includes(productId)) {
+      setMarkedProductsIds((prevMarkedProductsIds) => [
+        ...prevMarkedProductsIds.filter((id) => id !== productId),
+      ]);
+    } else {
+      setMarkedProductsIds((prevMarkedProductsIds) => [
+        ...prevMarkedProductsIds,
+        productId,
+      ]);
+    }
+  };
+
+  const handleRemoveSelectedProducts = async () => {
+    try {
+      if (confirm("Are you sure you want to remove the selected products?")) {
+        const response = await removeSelectedProducts(markedProductsIds);
+
+        setProducts((prevProducts) => [
+          ...prevProducts.filter(
+            (product) => !markedProductsIds.includes(product.id)
+          ),
+        ]);
+
+        alert(response);
+      }
+    } catch (error) {
+      alert(error);
     }
   };
 
@@ -252,13 +287,21 @@ const Products = () => {
 
       <p className="products-items-found">{products.length} Products found</p>
 
-      <div className="products-add-product">
-        {userRole === "ADMIN" && (
+      {userRole === "ADMIN" && (
+        <div className="admin-actions">
           <button className="btn btn--2" onClick={() => openAddProductModal()}>
             Add Product <i className="fa-solid fa-plus"></i>
           </button>
-        )}
-      </div>
+
+          <button
+            className="btn btn--5"
+            disabled={markedProductsIds.length === 0}
+            onClick={() => handleRemoveSelectedProducts()}
+          >
+            Remove <i className="fa-solid fa-trash"></i>
+          </button>
+        </div>
+      )}
 
       <div className="products-container">
         {products.map((product) => (
@@ -280,6 +323,24 @@ const Products = () => {
                     }`}
                   ></i>
                 </button>
+
+                {userRole === "ADMIN" && (
+                  <>
+                    <input
+                      type="checkbox"
+                      id="marking-product"
+                      name="marking-product"
+                      checked={markedProductsIds.includes(product.id)}
+                    />
+                    <label
+                      htmlFor="marking-product"
+                      className="marking-product-btn"
+                      onClick={(e) => handleMarkingProduct(e, product.id)}
+                    >
+                      <i className="fa-solid fa-check"></i>
+                    </label>
+                  </>
+                )}
               </div>
 
               <span className="info info--category">

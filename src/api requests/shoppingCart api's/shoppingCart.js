@@ -31,7 +31,7 @@ export const addProductToCart = async (userId, productId, quantity) => {
     );
     return response.data;
   } catch (error) {
-    throw new Error(error.response.data);
+    throw error.response.data;
   }
 };
 

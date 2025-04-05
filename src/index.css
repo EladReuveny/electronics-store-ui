@@ -42,7 +42,9 @@ img,
 video {
   display: block;
   max-width: 100%;
-  height: auto;
+  height: 200px;
+  object-fit: cover;
+  object-position: center;
 }
 
 input,
@@ -541,6 +543,7 @@ select:focus {
 }
 .product .product-details-content .product-details {
   color: var(--text-clr-darker);
+  margin-bottom: 100px;
 }
 .product .product-details-content .quantity {
   display: flex;
@@ -1063,6 +1066,11 @@ body.dark-mode .btn--3:hover {
 .form .account-options .forgot-password-link:hover {
   text-decoration: underline;
   color: var(--secondary-clr);
+}
+.form span.required-field-mark {
+  color: red;
+  font-size: 1rem;
+  margin-left: 2px;
 }
 
 /* -------------- Profile Section  -------------- */

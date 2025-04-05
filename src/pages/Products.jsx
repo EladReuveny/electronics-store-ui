@@ -207,7 +207,7 @@ const Products = () => {
                 required
                 autoFocus
               />
-              <label htmlFor="name">Name</label>
+              <label htmlFor="name">Name <span className="required-field-mark">*</span></label>
             </div>
 
             <div className="field">
@@ -227,7 +227,7 @@ const Products = () => {
                 placeholder=""
                 required
               />
-              <label htmlFor="price">Price</label>
+              <label htmlFor="price">Price <span className="required-field-mark">*</span></label>
             </div>
 
             <div className="field">
@@ -238,7 +238,7 @@ const Products = () => {
                 placeholder=""
                 required
               />
-              <label htmlFor="imgUrl">Image URL</label>
+              <label htmlFor="imgUrl">Image URL <span className="required-field-mark">*</span></label>
             </div>
 
             <div className="field">
@@ -249,11 +249,11 @@ const Products = () => {
                 placeholder=""
                 required
               />
-              <label htmlFor="stockQuantity">Stock Quantity</label>
+              <label htmlFor="stockQuantity">Stock Quantity <span className="required-field-mark">*</span></label>
             </div>
 
             <div className="field">
-              <span htmlFor="category">Category:</span>
+              <span htmlFor="category">Category <span className="required-field-mark">*</span> :</span>
               <select
                 id="category"
                 name="category"

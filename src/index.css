@@ -42,6 +42,7 @@ img,
 video {
   display: block;
   max-width: 100%;
+  width: 100%;
   height: 200px;
   object-fit: cover;
   object-position: center;
@@ -751,6 +752,10 @@ body.dark-mode .btn--3:hover {
   padding: 20px 20px 10px;
   border: 2px solid var(--primary-clr);
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: flex-start;
 }
 .wishlist .wishlist-container .product:hover {
   box-shadow: 0 0 10px 5px var(--primary-clr);
@@ -1066,6 +1071,11 @@ body.dark-mode .btn--3:hover {
 .form .account-options .forgot-password-link:hover {
   text-decoration: underline;
   color: var(--secondary-clr);
+}
+.form span.required-field-mark {
+  color: red;
+  font-size: 1rem;
+  margin-left: 2px;
 }
 .form span.required-field-mark {
   color: red;

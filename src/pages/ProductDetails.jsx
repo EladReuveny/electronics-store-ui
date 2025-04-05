@@ -82,6 +82,7 @@ const ProductDetails = () => {
     if (!user) {
       alert("Please log in first.");
       navigate("/login");
+      return;
     }
 
     if (quantity < 1) {
@@ -152,7 +153,6 @@ const ProductDetails = () => {
               }
             />
           </div>
-
           <button
             className="btn btn--2"
             onClick={() => handleAddProductToCart(user, product.id, quantity)}

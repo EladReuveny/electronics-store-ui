@@ -31,7 +31,8 @@ const Form = ({
               defaultValue={field.defaultValue ? field.defaultValue : ""}
             />
             <label htmlFor={field.id}>
-              {field.id.charAt(0).toUpperCase() + field.id.slice(1)}
+              {field.id.charAt(0).toUpperCase() + field.id.slice(1)}{" "}
+              <span className="required-field-mark">*</span>
             </label>
             {field.type === "password" && (
               <i

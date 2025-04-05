@@ -1077,6 +1077,11 @@ body.dark-mode .btn--3:hover {
   font-size: 1rem;
   margin-left: 2px;
 }
+.form span.required-field-mark {
+  color: red;
+  font-size: 1rem;
+  margin-left: 2px;
+}
 
 /* -------------- Profile Section  -------------- */
 .profile .profile-container {

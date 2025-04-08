@@ -182,7 +182,7 @@ const Orders = () => {
                   className={`btn order-status info-${order.status.toLowerCase()} `}
                   defaultValue={order.status}
                   onChange={(e) => handleUpdateOrderStatus(e, order.id)}
-                  disabled={userRole === "SUBSCRIBED"}
+                  disabled={userRole !== "ADMIN"}
                 >
                   <option value="" disabled>
                     --- Status ---

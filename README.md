@@ -11,12 +11,12 @@ An advanced full-stack web application for an electronics store built with **Spr
 - [Screenshots](#screenshots)
 - [Demo](#demo)
 - [Setup Instructions](#setup-instructions)
+- [User Guide](#user-guide)
 - [Author](#author)
-- [License](#license)
 
 ---
 
-## ✅ Features
+## <a id="features">✅ Features</a>
 
 ### 👤 Users
 
@@ -35,7 +35,7 @@ An advanced full-stack web application for an electronics store built with **Spr
 
 ---
 
-## ⚙️ Tech Stack
+## <a id="tech-stack">⚙️ Tech Stack</a>
 
 **Frontend:**
 
@@ -61,7 +61,7 @@ An advanced full-stack web application for an electronics store built with **Spr
 
 ---
 
-## 📸 Screenshots
+## <a id="screenshots">📸 Screenshots</a>
 
 ### 👤 User View
 
@@ -75,58 +75,63 @@ An advanced full-stack web application for an electronics store built with **Spr
   ![Forgot Password](https://imgur.com/fXuRIYG.png)
 
 - **Products (User View)**  
-  ![Products (User)](https://imgur.com/vHMIZfk.png)
+  ![Products (User)](https://imgur.com/buf50Km)
 
-- **Categories (For Example, Laptops)**  
-  ![Categories](https://imgur.com/WCNsimG.png)
+- **Categories (For Example, Smart Phones)**  
+  ![Categories](https://imgur.com/7IDpaMl)
 
-  - **Product Details**  
-    ![Product Details](https://imgur.com/8BgOLCw.png)
+- **Product Details**  
+  ![Product Details](https://imgur.com/QgbfqWm)
+- **Search Bar (with Filters)**  
+  ![Search Filters](https://imgur.com/3MBrLa0)
 
-  - **Wishlist**  
-    ![Wishlist](https://imgur.com/7mtdiJi.png)
+- **Wishlist**  
+  ![Wishlist](https://imgur.com/HlWxj6q)
 
 - **Cart**  
-  ![Cart](https://imgur.com/NpNDF8g.png)
+  ![Cart](https://imgur.com/M0U9vBB)
 
 - **Orders (User View)**  
-  ![User Orders](https://imgur.com/f9vtgvn.png)
+  ![User Orders](https://imgur.com/wXFABaB)
 
 - **Order Details**  
-  ![Order Details](https://imgur.com/lkQWtzV.png)
+  ![Order Details](https://imgur.com/THx8N54)
 
 - **Profile (Settings)**  
-  ![Profile Settings](https://imgur.com/uBYRjia.png)
-
-- **Search Bar (with Filters)**  
-  ![Search Filters](https://imgur.com/VeYWUY5.png)
+  ![Profile Settings](https://imgur.com/S7rMHWy)
 
 ### 🛠️ Admin View
 
 - **Products (Admin View)**  
-  ![Admin Products](https://imgur.com/u57MYms.png)
+  ![Admin Products](https://imgur.com/rjHuTwO)
 
 - **Add New Product (Admin)**  
-  ![Add Product](https://imgur.com/TIplKRw.png)
+  ![Add Product](https://imgur.com/RItj2VL)
+
+- **Product Details (Admin View)**  
+  ![Add Product](https://imgur.com/rU0EUzb)
+
+- **Edit Product (Admin)**  
+  ![Add Product](https://imgur.com/MAfCJPv)
 
 - **View All Orders (XML Format)**  
-  ![XML Orders](https://imgur.com/OZKsx5N.png)
+  ![XML Orders](https://imgur.com/4um8K2V)
 
 - **Orders (Admin View)**  
-  ![Admin Orders](https://imgur.com/8PveU5q.png)
+  ![Admin Orders](https://imgur.com/GoLTJyT)
 
-👉 [**View All Screenshots in Gallery**](https://imgur.com/a/uhJGNQS)
+👉 [**View All Screenshots in Gallery**](https://imgur.com/a/78LhkBX)
 
 ---
 
-## 🎥 Demo
+## <a id="demo">🎥 Demo</a>
 
 🚀 **Live Demo**  
-You can view the live demo of the application at: [https://electronics-store-app.netlify.app/](https://electronics-store-app.netlify.app/)
+ You can view the live demo of the application at: [https://electronics-store-app.netlify.app/](https://electronics-store-app.netlify.app/)
 
 ---
 
-## 🛠️ Setup Instructions
+## <a id="setup-instructions">🛠️ Setup Instructions</a>
 
 ### 🔧 Backend (Spring Boot)
 
@@ -168,7 +173,17 @@ npm run dev
 
 4. Open your browser at http://localhost:5173
 
-## 👨‍💻 Author
+---
+
+##
+
+## <a id="user-guide">📘 User Guide</a>
+
+To view a complete user manual with screen-by-screen explanations, visit the 📄 [User Guide](./USER_GUIDE.md).
+
+---
+
+## <a id="author">👨‍💻 Author</a>
 
 **Elad Reuveny**  
 📧 [eladre123@gmail.com](mailto:eladre123@gmail.com)  

@@ -142,7 +142,7 @@ const WishList = () => {
                 </Link>
 
                 <button
-                  className="btn btn--4"
+                  className="btn btn--4 move-to-cart-btn"
                   onClick={() => handleMoveToShoppingCart(user, product.id)}
                 >
                   Move to Cart

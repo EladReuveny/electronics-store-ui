@@ -62,10 +62,29 @@ const Products = () => {
       }
     };
 
-    const fetchAllProducts = async () => {
+    const fetchProducts = async () => {
       try {
-        const productData = await getAllProducts();
-        setProducts(productData);
+        let searchResults;
+
+        if (query) {
+          searchResults = await searchProductsByName(query);
+        } else {
+          searchResults = await getAllProducts();
+        }
+
+        if (sortBy) {
+          searchResults = [...searchResults].sort((a, b) =>
+            sortBy === "asc" ? a.price - b.price : b.price - a.price
+          );
+        }
+
+        if (hideOutOfStock) {
+          searchResults = [...searchResults].filter(
+            (product) => product.stockQuantity > 0
+          );
+        }
+
+        setProducts(searchResults);
 
         if (user) {
           const wishListData = await getWishList(user.id);
@@ -79,11 +98,7 @@ const Products = () => {
       }
     };
 
-    if (query) {
-      handleSearchProducts();
-    } else {
-      fetchAllProducts();
-    }
+    fetchProducts();
   }, [query, sortBy, hideOutOfStock]);
 
   const handleAddProductToWishList = async (e, user, productId) => {
@@ -207,7 +222,9 @@ const Products = () => {
                 required
                 autoFocus
               />
-              <label htmlFor="name">Name <span className="required-field-mark">*</span></label>
+              <label htmlFor="name">
+                Name <span className="required-field-mark">*</span>
+              </label>
             </div>
 
             <div className="field">
@@ -227,7 +244,9 @@ const Products = () => {
                 placeholder=""
                 required
               />
-              <label htmlFor="price">Price <span className="required-field-mark">*</span></label>
+              <label htmlFor="price">
+                Price <span className="required-field-mark">*</span>
+              </label>
             </div>
 
             <div className="field">
@@ -238,7 +257,9 @@ const Products = () => {
                 placeholder=""
                 required
               />
-              <label htmlFor="imgUrl">Image URL <span className="required-field-mark">*</span></label>
+              <label htmlFor="imgUrl">
+                Image URL <span className="required-field-mark">*</span>
+              </label>
             </div>
 
             <div className="field">
@@ -249,11 +270,15 @@ const Products = () => {
                 placeholder=""
                 required
               />
-              <label htmlFor="stockQuantity">Stock Quantity <span className="required-field-mark">*</span></label>
+              <label htmlFor="stockQuantity">
+                Stock Quantity <span className="required-field-mark">*</span>
+              </label>
             </div>
 
             <div className="field">
-              <span htmlFor="category">Category <span className="required-field-mark">*</span> :</span>
+              <span htmlFor="category">
+                Category <span className="required-field-mark">*</span> :
+              </span>
               <select
                 id="category"
                 name="category"

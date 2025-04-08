@@ -49,16 +49,16 @@ export const addProduct = async (product) => {
 /**
  * Update product details
  * @param {number} productId
- * @param {Object} product
+ * @param {Object} productUpdateDTO
  * @returns {Promise<Object>} Updated product
  */
-export const updateProduct = async (productId, product) => {
+export const updateProduct = async (productId, productUpdateDTO) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/${productId}`, product);
+    const response = await axios.put(`${API_BASE_URL}/${productId}`, productUpdateDTO);
     return response.data;
   } catch (error) {
     console.error(`Error updating product ${productId}:`, error);
-    throw error;
+    throw error.response?.data;
   }
 };
 

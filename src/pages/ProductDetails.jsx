@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { getProductById } from "../api requests/product api's/product";
+import {
+  getProductById,
+  updateProduct,
+} from "../api requests/product api's/product";
 import {
   addProductToWishList,
   getWishList,
@@ -19,6 +22,10 @@ const ProductDetails = () => {
   const { productId } = useParams();
 
   const navigate = useNavigate();
+
+  const modalRef = useRef();
+
+  const userRole = user?.role;
 
   const categoryNames = {
     SMART_PHONE: "Smart Phone",
@@ -99,11 +106,168 @@ const ProductDetails = () => {
     }
   };
 
+  const openEditProductModal = () => {
+    modalRef.current.showModal();
+  };
+
+  const closeEditProductModal = () => {
+    modalRef.current.close();
+  };
+
+  const handleEditProductSubmit = async (event) => {
+    event.preventDefault();
+
+    const productUpdateDTO = {
+      name: event.target.name.value.trim(),
+      description: event.target.description.value.trim(),
+      price: event.target.price.value.trim(),
+      imgUrl: event.target.imgUrl.value.trim(),
+      stockQuantity: event.target.stockQuantity.value.trim(),
+      category: event.target.category.value.trim() || null,
+    };
+
+    try {
+      const updatedProduct = await updateProduct(productId, productUpdateDTO);
+      setProduct(updatedProduct);
+      alert("Product has been updated successfully!");
+      event.target.reset();
+      closeEditProductModal();
+    } catch (error) {
+      alert(error);
+    }
+  };
+
   return (
     <section className="product" id="product">
       <div className="section-title">
         <h1>Product Details</h1>
       </div>
+
+      {userRole === "ADMIN" && (
+        <div className="admin-actions">
+          <button className="btn btn--2" onClick={() => openEditProductModal()}>
+            Edit Product <i className="fa-solid fa-pen"></i>
+          </button>
+        </div>
+      )}
+
+      <dialog ref={modalRef} className="products-edit-product-dialog">
+        <button className="btn btn--3" onClick={closeEditProductModal}>
+          <i className="fa-solid fa-circle-xmark" title="Close"></i>
+        </button>
+
+        <h1>Edit Product</h1>
+
+        <form className="form" onSubmit={(e) => handleEditProductSubmit(e)}>
+          <fieldset className="fieldset">
+            <legend>Product Details</legend>
+
+            <div className="field">
+              <input
+                type="text"
+                id="name"
+                name="name"
+                defaultValue={product.name}
+                placeholder=""
+                autoFocus
+                required
+              />
+              <label htmlFor="name">
+                Name <span className="required-field-mark">*</span>
+              </label>
+            </div>
+
+            <div className="field">
+              <textarea
+                id="description"
+                name="description"
+                defaultValue={product.description}
+                placeholder=""
+              ></textarea>
+              <label htmlFor="description">Description</label>
+            </div>
+
+            <div className="field">
+              <input
+                type="number"
+                id="price"
+                name="price"
+                defaultValue={product.price}
+                placeholder=""
+                required
+              />
+              <label htmlFor="price">
+                Price <span className="required-field-mark">*</span>
+              </label>
+            </div>
+
+            <div className="field">
+              <input
+                type="url"
+                id="imgUrl"
+                name="imgUrl"
+                defaultValue={product.imgUrl}
+                placeholder=""
+              />
+              <label htmlFor="imgUrl">
+                Image URL <span className="required-field-mark">*</span>
+              </label>
+            </div>
+
+            <div className="field">
+              <input
+                type="number"
+                id="stockQuantity"
+                name="stockQuantity"
+                defaultValue={product.stockQuantity}
+                placeholder=""
+                required
+              />
+              <label htmlFor="stockQuantity">
+                Stock Quantity <span className="required-field-mark">*</span>
+              </label>
+            </div>
+
+            <div className="field">
+              <span htmlFor="category">
+                Category: <span className="required-field-mark">*</span>
+              </span>
+              <select
+                id="category"
+                name="category"
+                className="btn btn--1"
+                value={product.category}
+                onChange={(e) =>
+                  setProduct((prevProduct) => ({
+                    ...prevProduct,
+                    category: e.target.value,
+                  }))
+                }
+                required
+              >
+                <option value="" hidden disabled>
+                  --- Select a category ---
+                </option>
+                <option value="SMART_PHONE">Smart Phone</option>
+                <option value="TABLET">Tablet</option>
+                <option value="LAPTOP">Laptop</option>
+                <option value="TV">TV</option>
+              </select>
+            </div>
+
+            <div className="actions">
+              <button type="reset" className="btn btn--6">
+                Reset
+              </button>
+
+              <button type="submit" className="btn btn--2">
+                Save Changes
+                <i className="fa-solid fa-pen"></i>
+              </button>
+            </div>
+          </fieldset>
+        </form>
+      </dialog>
 
       <div className="product-details-container">
         <div className="product-image-container">
@@ -128,7 +292,11 @@ const ProductDetails = () => {
         <div className="product-details-content">
           <div className="product-header">
             <h2 className="product-name">{product.name}</h2>
-            {product.stockQuantity <= 0 && (
+            {product.stockQuantity > 0 ? (
+              <span className="info info--in-stock">
+                {product.stockQuantity} in stock
+              </span>
+            ) : (
               <span className="info info--out-of-stock">Out of Stock</span>
             )}
           </div>

@@ -29,6 +29,8 @@ const Form = ({
               required
               autoFocus={index === 0 && true}
               defaultValue={field.defaultValue ? field.defaultValue : ""}
+              pattern={field.name === "phone" ? "[0-9]*" : null}
+              inputMode={field.name === "phone" ? "numeric" : null}
             />
             <label htmlFor={field.id}>
               {field.id.charAt(0).toUpperCase() + field.id.slice(1)}{" "}

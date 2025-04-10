@@ -1,6 +1,6 @@
 # 🛍️ Electronics E-Commerce Application
 
-An advanced full-stack web application for an electronics store built with **Spring Boot**, **React**, **PostgreSQL**, and more. This application supports both user and admin roles and provides a complete shopping experience, including authentication, product browsing, cart, wishlist, order management, and administrative product control.
+An advanced Full - Stack web application for an electronics store built with **Spring Boot**, **React**, **PostgreSQL**, and more. This application supports both user and admin roles and provides a complete shopping experience, including authentication, product browsing, cart, wishlist, orders management and tracking, and administrative product control.
 
 ---
 
@@ -11,12 +11,12 @@ An advanced full-stack web application for an electronics store built with **Spr
 - [Screenshots](#screenshots)
 - [Demo](#demo)
 - [Setup Instructions](#setup-instructions)
+- [User Guide](#user-guide)
 - [Author](#author)
-- [License](#license)
 
 ---
 
-## ✅ Features
+## <a id="features">✅ Features</a>
 
 ### 👤 Users
 
@@ -35,7 +35,8 @@ An advanced full-stack web application for an electronics store built with **Spr
 
 ---
 
-## ⚙️ Tech Stack
+## <a id="tech-stack">⚙️ Tech Stack</a>
+## <a id="tech-stack">⚙️ Tech Stack</a>
 
 **Frontend:**
 
@@ -61,72 +62,88 @@ An advanced full-stack web application for an electronics store built with **Spr
 
 ---
 
-## 📸 Screenshots
+## <a id="screenshots">📸 Screenshots</a>
+## <a id="screenshots">📸 Screenshots</a>
 
 ### 👤 User View
 
 - **Login Page**  
-  ![Login](https://imgur.com/924p33u.png)
+  ![Login](https://imgur.com/rSwqtG5.png)
 
 - **Register Page**  
-  ![Register](https://imgur.com/aL4yATj.png)
+  ![Register](https://imgur.com/VKMJOyE.png)
 
 - **Forgot Password**  
-  ![Forgot Password](https://imgur.com/fXuRIYG.png)
+  ![Forgot Password](https://imgur.com/8VDg97T.png)
 
 - **Products (User View)**  
-  ![Products (User)](https://imgur.com/vHMIZfk.png)
+  ![Products (User)](https://imgur.com/Huh87b4.png)
 
-- **Categories (For Example, Laptops)**  
-  ![Categories](https://imgur.com/WCNsimG.png)
+- **Products (User View | Light Mode)**  
+  ![Products (User)](https://imgur.com/pVodGe8.png)
 
-  - **Product Details**  
-    ![Product Details](https://imgur.com/8BgOLCw.png)
+- **Categories (For Example, Smart Phones)**  
+  ![Categories](https://imgur.com/ZpHherX.png)
 
-  - **Wishlist**  
-    ![Wishlist](https://imgur.com/7mtdiJi.png)
-
-- **Cart**  
-  ![Cart](https://imgur.com/NpNDF8g.png)
-
-- **Orders (User View)**  
-  ![User Orders](https://imgur.com/f9vtgvn.png)
-
-- **Order Details**  
-  ![Order Details](https://imgur.com/lkQWtzV.png)
-
-- **Profile (Settings)**  
-  ![Profile Settings](https://imgur.com/uBYRjia.png)
+- **Product Details**  
+  ![Product Details](https://imgur.com/xRkTkJb.png)
 
 - **Search Bar (with Filters)**  
-  ![Search Filters](https://imgur.com/VeYWUY5.png)
+  ![Search Filters](https://imgur.com/k0tlAnm.png)
+
+- **Wishlist**  
+  ![Wishlist](https://imgur.com/LmMJ0Iw.png)
+
+- **Cart**  
+  ![Cart](https://imgur.com/EeA6RWQ.png)
+
+- **Orders (User View)**  
+  ![User Orders](https://imgur.com/izqVsDC.png)
+
+- **Order Details**  
+  ![Order Details](https://imgur.com/Lwu45FW.png)
+
+- **Profile (Settings)**  
+  ![Profile Settings](https://imgur.com/v55S6YC.png)
 
 ### 🛠️ Admin View
 
 - **Products (Admin View)**  
-  ![Admin Products](https://imgur.com/u57MYms.png)
+  ![Admin Products](https://imgur.com/hWa2Fbs.png)
+
+- **Products (Admin View | Light Mode)**  
+  ![Admin Products](https://imgur.com/8ylV500.png)
 
 - **Add New Product (Admin)**  
-  ![Add Product](https://imgur.com/TIplKRw.png)
+  ![Add Product](https://imgur.com/eDTxUE5.png)
 
-- **View All Orders (XML Format)**  
-  ![XML Orders](https://imgur.com/OZKsx5N.png)
+- **Product Details (Admin View)**  
+  ![Add Product](https://imgur.com/am3Ks3G.png)
+
+- **Edit Product (Admin)**  
+  ![Add Product](https://imgur.com/y1FRtsO.png)
 
 - **Orders (Admin View)**  
-  ![Admin Orders](https://imgur.com/8PveU5q.png)
+  ![Admin Orders](https://imgur.com/SNUIqB4.png)
 
-👉 [**View All Screenshots in Gallery**](https://imgur.com/a/uhJGNQS)
+  - **Order Details (Admin View)**  
+    ![Order Details](https://imgur.com/lkMJoYc.png)
+
+- **View All Orders (XML Format)**  
+  ![XML Orders](https://imgur.com/OZIsEQG.png)
+
+👉 [**View All Screenshots in Gallery**](https://imgur.com/a/CvkAFHJ)
 
 ---
 
-## 🎥 Demo
+## <a id="demo">🎥 Demo</a>
 
 🚀 **Live Demo**  
-You can view the live demo of the application at: [https://electronics-store-app.netlify.app/](https://electronics-store-app.netlify.app/)
+ You can view the live demo of the application at: [https://electronics-store-app.netlify.app/](https://electronics-store-app.netlify.app/)
 
 ---
 
-## 🛠️ Setup Instructions
+## <a id="setup-instructions">🛠️ Setup Instructions</a>
 
 ### 🔧 Backend (Spring Boot)
 
@@ -168,7 +185,87 @@ npm run dev
 
 4. Open your browser at http://localhost:5173
 
-## 👨‍💻 Author
+---
+
+## <a id="user-guide">📘 User Guide</a>
+
+---
+
+**📘 User Guide (Functional Description)**
+
+**👤 User Flow**
+
+1. **Register / Login**
+
+   - Navigate to the home page.
+   - Click Register to create a new account or Login if you already have one.
+   - You can use Forgot Password to retrieve your password via email, address and phone number.
+
+2. **Browsing Products**
+
+   - Users are allowed to view products without having an account.
+   - View all available products categorized by type (e.g., Smart Phones, Laptops, Tablets, Tv's).
+   - Use the Search Bar to find specific items.
+   - Apply Filters to narrow down products by price or hide out-of-stock items.
+
+3. **Product Details**
+
+   - Click on any product to view detailed information, such as:
+     - Price
+     - Description
+     - Stock availability
+     - Category
+     - Images.
+   - You can Add to Cart or Wishlist from this page.
+
+4. **Wishlist**
+
+   - Accessible via the top navigation bar.
+   - Add and remove items for future purchases.
+
+5. **Shopping Cart**
+
+   - Accessible via the top navigation bar.
+   - View all selected items for purchase.
+   - Update quantities or remove items.
+   - View product details if necessary.
+   - Proceed to Checkout to place an order.
+
+6. **Orders**
+
+   - View past orders and their details.
+   - Click any order to see more detailed information.
+   - Cancel an Order: If the order was placed within a specified time after checkout, you can choose to cancel the order directly from the order details page.
+
+7. **Profile Settings**
+   - Accessible via the top navigation bar.
+   - Update your email, password, address and phone number.
+   - Modifying application's appearance settings, such as display preferences.
+
+🛠️ **Admin Flow**
+
+1. **Login**
+
+   - Admins must log in with admin credentials.
+
+2. **Manage Products**
+
+   - View all products.
+   - Add new products and edit/delete existing ones.
+
+3. **Managing and Tracking Orders**
+
+   - Access the Orders page to view all the orders.
+   - Option to view orders in XML format for export or integration.
+   - Option to modify order's status as needed (e.g., "Pending", "Packaging", "Shipped", "Delivered", "Canceled").
+
+🖼️ **Screenshots Reference**
+
+- To view real screenshots of the application, visit the <a href="#screenshots">📸 Screenshots</a> section.
+
+---
+
+## <a id="author">👨‍💻 Author</a>
 
 **Elad Reuveny**  
 📧 [eladre123@gmail.com](mailto:eladre123@gmail.com)  

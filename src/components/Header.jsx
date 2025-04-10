@@ -34,11 +34,6 @@ const Header = () => {
     try {
       const query = e.target.query.value.trim();
 
-      if (!query) {
-        console.warn("Search query is empty.");
-        return;
-      }
-
       const sortBySelectVal = e.target["sort-by"].value;
       const isHideOutOfStockCheckboxChecked =
         e.target["hide-out-of-stock"].checked;
@@ -50,6 +45,7 @@ const Header = () => {
             : "") +
           (isHideOutOfStockCheckboxChecked ? `&hideOutOfStock=true` : "")
       );
+      closeSearchModal();
     } catch (error) {
       console.error("Error searching for products:", error);
     }
@@ -92,39 +88,45 @@ const Header = () => {
                 </button>
               </div>
 
-              <details className="advanced-search-filters">
-                <summary className="btn btn--4">
-                  <span className="material-symbols-outlined">tune</span>
-                  Filters
-                </summary>
+              <div className="actions">
+                <details className="advanced-search-filters">
+                  <summary className="btn btn--2">
+                    <span className="material-symbols-outlined">tune</span>
+                    Filters
+                  </summary>
 
-                <div className="filters">
-                  <div className="sort-by-filter">
-                    <label htmlFor="sort-by">Sort by (price):</label>
-                    <select
-                      id="sort-by"
-                      name="sort-by"
-                      className="btn btn--1"
-                      defaultValue=""
-                    >
-                      <option value="" disabled>
-                        --- Select an order ---
-                      </option>
-                      <option value="ascending-order">Low to high</option>
-                      <option value="descending-order">High to low</option>
-                    </select>
-                  </div>
+                  <div className="filters">
+                    <div className="sort-by-filter">
+                      <label htmlFor="sort-by">Sort by (price):</label>
+                      <select
+                        id="sort-by"
+                        name="sort-by"
+                        className="btn btn--1"
+                        defaultValue=""
+                      >
+                        <option value="" hidden disabled>
+                          --- Select an order ---
+                        </option>
+                        <option value="ascending-order">Low to high</option>
+                        <option value="descending-order">High to low</option>
+                      </select>
+                    </div>
 
-                  <div className="out-of-stock-filter">
-                    <ToggleSwitch
-                      id={"hide-out-of-stock"}
-                      text={"Hide out of stock: "}
-                      isChecked={hideOutOfStock}
-                      onChange={(e) => setHideOutOfStock(e.target.checked)}
-                    />
+                    <div className="out-of-stock-filter">
+                      <ToggleSwitch
+                        id={"hide-out-of-stock"}
+                        text={"Hide out of stock: "}
+                        isChecked={hideOutOfStock}
+                        onChange={(e) => setHideOutOfStock(e.target.checked)}
+                      />
+                    </div>
                   </div>
-                </div>
-              </details>
+                </details>
+
+                <button type="reset" className="btn btn--6">
+                  Reset
+                </button>
+              </div>
             </form>
           </dialog>
         </div>

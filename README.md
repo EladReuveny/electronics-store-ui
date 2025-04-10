@@ -36,7 +36,6 @@ An advanced Full - Stack web application for an electronics store built with **S
 ---
 
 ## <a id="tech-stack">⚙️ Tech Stack</a>
-## <a id="tech-stack">⚙️ Tech Stack</a>
 
 **Frontend:**
 
@@ -62,7 +61,6 @@ An advanced Full - Stack web application for an electronics store built with **S
 
 ---
 
-## <a id="screenshots">📸 Screenshots</a>
 ## <a id="screenshots">📸 Screenshots</a>
 
 ### 👤 User View

@@ -89,6 +89,8 @@ const ForgotPassword = () => {
                   name="phone"
                   value={authenticatedUser?.phone}
                   placeholder=""
+                  pattern="[0-9]*"
+                  inputMode="numeric"
                   disabled
                 />
                 <label htmlFor="phone">Phone</label>

@@ -164,6 +164,8 @@ const Profile = () => {
                         type="tel"
                         id="phone"
                         name="phone"
+                        pattern="[0-9]*"
+                        inputMode="numeric"
                         placeholder=""
                       />
                       <label htmlFor="phone">Phone</label>
@@ -236,6 +238,8 @@ const Profile = () => {
                       id="phone"
                       name="phone"
                       value={user?.phone}
+                      pattern="[0-9]*"
+                      inputMode="numeric"
                       placeholder=""
                       disabled
                     />

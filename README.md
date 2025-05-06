@@ -1,6 +1,44 @@
 # 🛍️ Electronics E-Commerce Application
 
-An advanced Full - Stack web application for an electronics store built with **Spring Boot**, **React**, **PostgreSQL**, and more. This application supports both user and admin roles and provides a complete shopping experience, including authentication, product browsing, cart, wishlist, orders management and tracking, and administrative product control.
+An advanced **Full-Stack E-Commerce Web Application** for electronics, built using:
+
+- ⚙️ **Backend**: Spring Boot (Java)
+- 💻 **Frontend**: React.js
+- 🗄️ **Database**: PostgreSQL
+- 🧰 **Tools & Libraries**: RESTful APIs, JPA, Axios, React Router, Context API, and more
+
+This responsive web application supports two roles: **User** and **Admin**, offering a complete and seamless shopping experience with the following key features:
+
+---
+
+## ✨ Features
+
+### 👤 User Functionality
+- 🔐 Authentication: Register, Login, Forgot Password
+- 🛒 Shop: Browse products and categories, view product details
+- 📦 Cart: Add, update, and remove items
+- ❤️ Wishlist: Save products for later
+- 🔎 Search: Filter products by name, category, and price range
+- 🧾 Orders: Place orders, view order history and order details
+- ⚙️ Profile: View and edit personal details (with dark/light mode support)
+
+### 🛠️ Admin Functionality
+- 📦 Product Management: Add, edit, delete, and view product details
+- 📃 Order Management: View all customer orders and their statuses
+- 🧾 Export Orders: Download order list in XML format
+- 🌐 Responsive Admin Dashboard: Optimized for desktop and tablet
+
+---
+
+## 📱 Responsiveness
+
+The app is fully responsive and optimized for:
+
+- ✅ Mobile (Phones)
+- ✅ Tablets
+- ✅ Desktops
+
+It adapts UI layouts such as navigation, product grid, and modals to fit smaller screen sizes using **flexbox**, **grid**, and conditional rendering.
 
 ---
 
@@ -63,81 +101,110 @@ An advanced Full - Stack web application for an electronics store built with **S
 
 ## <a id="screenshots">📸 Screenshots</a>
 
-### 👤 User View
+<details>
+   <summary>👤 <strong>User View</strong></summary>
 
 - **Login Page**  
-  ![Login](https://imgur.com/rSwqtG5.png)
+  ![Login](https://imgur.com/hHHfjjU.png)
 
 - **Register Page**  
-  ![Register](https://imgur.com/VKMJOyE.png)
+  ![Register](https://imgur.com/KeszhHo.png)
 
 - **Forgot Password**  
-  ![Forgot Password](https://imgur.com/8VDg97T.png)
+  ![Forgot Password](https://imgur.com/lX3cnZ2.png)
 
 - **Products (User View)**  
-  ![Products (User)](https://imgur.com/Huh87b4.png)
+  ![Products](https://imgur.com/yJkQK11.png)
 
-- **Products (User View | Light Mode)**  
-  ![Products (User)](https://imgur.com/pVodGe8.png)
-
-- **Categories (For Example, Smart Phones)**  
-  ![Categories](https://imgur.com/ZpHherX.png)
+- **Categories (e.g., Laptops)**  
+  ![Categories](https://imgur.com/bOkbjIc.png)
 
 - **Product Details**  
-  ![Product Details](https://imgur.com/xRkTkJb.png)
+  ![Product Details](https://imgur.com/qqlih0U.png)
 
-- **Search Bar (with Filters)**  
-  ![Search Filters](https://imgur.com/k0tlAnm.png)
+- **Search with Filters**  
+  ![Search Filters](https://imgur.com/7rZb5pq.png)
 
 - **Wishlist**  
-  ![Wishlist](https://imgur.com/LmMJ0Iw.png)
+  ![Wishlist](https://imgur.com/0BUhCip.png)
 
 - **Cart**  
-  ![Cart](https://imgur.com/EeA6RWQ.png)
+  ![Cart](https://imgur.com/5MV1M6V.png)
 
-- **Orders (User View)**  
-  ![User Orders](https://imgur.com/izqVsDC.png)
+- **Cart (Light Mode)**  
+  ![Cart Light](https://imgur.com/LwRyNZX.png)
+
+- **Orders**  
+  ![Orders](https://imgur.com/moCuvD9.png)
 
 - **Order Details**  
-  ![Order Details](https://imgur.com/Lwu45FW.png)
+  ![Order Details](https://imgur.com/hCRtgTz.png)
 
-- **Profile (Settings)**  
-  ![Profile Settings](https://imgur.com/v55S6YC.png)
+- **Profile Settings**  
+  ![Profile](https://imgur.com/Pw5PTqc.png)
 
-### 🛠️ Admin View
+- **Profile (Light Mode)**  
+  ![Profile Light](https://imgur.com/tnrHzr3.png)
+
+</details>
+
+---
+
+<details>
+<summary>🛠️ <strong>Admin View</strong></summary>
 
 - **Products (Admin View)**  
-  ![Admin Products](https://imgur.com/hWa2Fbs.png)
+  ![Admin Products](https://imgur.com/gGOUsAx.png)
 
-- **Products (Admin View | Light Mode)**  
-  ![Admin Products](https://imgur.com/8ylV500.png)
+- **Products (Light Mode)**  
+  ![Admin Products Light](https://imgur.com/MIjtDIG.png)
 
-- **Add New Product (Admin)**  
-  ![Add Product](https://imgur.com/eDTxUE5.png)
+- **Add New Product**  
+  ![Add Product](https://imgur.com/03ttngO.png)
 
-- **Product Details (Admin View)**  
-  ![Add Product](https://imgur.com/am3Ks3G.png)
+- **Product Details (Admin)**  
+  ![Admin Product Details](https://imgur.com/YpMFlEh.png)
 
-- **Edit Product (Admin)**  
-  ![Add Product](https://imgur.com/y1FRtsO.png)
+- **Edit Product**  
+  ![Edit Product](https://imgur.com/REmElXH.png)
 
 - **Orders (Admin View)**  
-  ![Admin Orders](https://imgur.com/SNUIqB4.png)
+  ![Admin Orders](https://imgur.com/bjmox9p.png)
 
-  - **Order Details (Admin View)**  
-    ![Order Details](https://imgur.com/lkMJoYc.png)
+- **Orders (Light Mode)**  
+  ![Admin Orders Light](https://imgur.com/tnrHzr3.png)
 
-- **View All Orders (XML Format)**  
-  ![XML Orders](https://imgur.com/OZIsEQG.png)
+- **Order Details (Admin)**  
+  ![Order Details](https://imgur.com/3CcX3U2.png)
 
-👉 [**View All Screenshots in Gallery**](https://imgur.com/a/CvkAFHJ)
+- **All Orders (XML Format)**  
+  ![XML Orders](https://imgur.com/BGZjiW9.png)
+
+</details>
+
+---
+
+<details>
+<summary>📱 <strong>Responsive View</strong></summary>
+
+- **Menu Bar (Opened)**  
+  ![Menu Bar](https://imgur.com/7Wv3JGp.png)
+
+- **Products (Responsive)**  
+  ![Responsive Products](https://imgur.com/9L95xcQ.png)
+
+</details>
+
+---
+
+👉 [**View All Screenshots in Gallery**](https://imgur.com/a/x2solXr)
 
 ---
 
 ## <a id="demo">🎥 Demo</a>
 
 🚀 **Live Demo**  
- You can view the live demo of the application at: [https://electronics-store-app.netlify.app/](https://electronics-store-app.netlify.app/)
+ You can view the live demo of the application at: [Electronics](https://electronics-store-app.netlify.app/).
 
 ---
 

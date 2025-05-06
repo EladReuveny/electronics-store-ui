@@ -714,7 +714,7 @@ details[open] summary i {
   padding: 10px 30px;
 }
 .product .products-edit-product-dialog > h1 {
-  margin-block: -40px 35px;
+  margin-bottom: 35px;
   font-size: 1.8rem;
   border-bottom: 3px solid var(--secondary-clr);
 }
@@ -929,8 +929,8 @@ details[open] summary i {
   color: var(--text-clr);
   font-size: 1.7rem;
   position: absolute;
-  top: -10px;
-  left: -15px;
+  top: -12px;
+  left: -28px;
 }
 .btn--3:hover {
   opacity: 0.8;
@@ -1131,11 +1131,6 @@ body.dark-mode .btn--3:hover {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 10px;
-}
-.orders .order-details-dialog .header .title {
-  display: flex;
-  gap: 50px;
-  align-items: center;
 }
 .orders .order-details-dialog .details {
   display: flex;

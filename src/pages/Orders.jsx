@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import {
   cancelOrder,
   getAllOrders,
@@ -6,7 +7,6 @@ import {
   getOrdersByUserId,
   updateOrderStatus,
 } from "../api requests/order api's/order";
-import { Link, useNavigate } from "react-router-dom";
 import StartShopping from "../components/StartShopping";
 import useAuth from "../hooks/useAuth";
 
@@ -87,6 +87,7 @@ const Orders = () => {
       ]);
     } catch (error) {
       console.error("Error updating order status:", error);
+      alert(error);
     }
   };
 
@@ -105,6 +106,7 @@ const Orders = () => {
       }
     } catch (error) {
       console.error("Error canceling order:", error);
+      alert(error);
     }
   };
 
@@ -213,6 +215,13 @@ const Orders = () => {
           <div className="order">
             <div className="header">
               <button
+                className="btn btn--3"
+                onClick={handleCloseViewOrderModal}
+              >
+                <i className="fa-solid fa-circle-xmark" title="Close"></i>
+              </button>
+
+              <button
                 className="btn btn--5"
                 title="Cancel Order"
                 onClick={() => handleCancelOrder(selectedOrder)}
@@ -220,20 +229,11 @@ const Orders = () => {
                 Cancel Order
               </button>
 
-              <div className="title">
-                <h2>Order #{selectedOrder.id}</h2>
-                <p
-                  className={`info info--${selectedOrder.status.toLowerCase()}`}
-                >
-                  {selectedOrder.status}
-                </p>
-              </div>
-              <button
-                className="btn btn--3"
-                onClick={handleCloseViewOrderModal}
-              >
-                <i className="fa-solid fa-circle-xmark" title="Close"></i>
-              </button>
+              <h2>Order #{selectedOrder.id}</h2>
+
+              <p className={`info info--${selectedOrder.status.toLowerCase()}`}>
+                {selectedOrder.status}
+              </p>
             </div>
 
             <div className="details">

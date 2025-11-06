@@ -1,6 +1,6 @@
-import axios from "axios";
+import { api } from "../../config";
 
-const API_BASE_URL = "http://localhost:8080/api/v1/product";
+const BASE_URL = "products";
 
 /**
  * Fetch all products
@@ -8,7 +8,7 @@ const API_BASE_URL = "http://localhost:8080/api/v1/product";
  */
 export const getAllProducts = async () => {
   try {
-    const response = await axios.get(API_BASE_URL);
+    const response = await api.get(`/${BASE_URL}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching products:", error);
@@ -23,7 +23,7 @@ export const getAllProducts = async () => {
  */
 export const getProductById = async (productId) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/${productId}`);
+    const response = await api.get(`/${BASE_URL}/${productId}`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching product ${productId}:`, error);
@@ -38,7 +38,7 @@ export const getProductById = async (productId) => {
  */
 export const addProduct = async (product) => {
   try {
-    const response = await axios.post(API_BASE_URL, product);
+    const response = await api.post(`/${BASE_URL}`, product);
     return response.data;
   } catch (error) {
     console.error("Error adding product:", error);
@@ -54,7 +54,10 @@ export const addProduct = async (product) => {
  */
 export const updateProduct = async (productId, productUpdateDTO) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/${productId}`, productUpdateDTO);
+    const response = await api.put(
+      `/${BASE_URL}/${productId}`,
+      productUpdateDTO
+    );
     return response.data;
   } catch (error) {
     console.error(`Error updating product ${productId}:`, error);
@@ -69,7 +72,7 @@ export const updateProduct = async (productId, productUpdateDTO) => {
  */
 export const deleteProductById = async (productId) => {
   try {
-    await axios.delete(`${API_BASE_URL}/${productId}`);
+    await api.delete(`/${BASE_URL}/${productId}`);
   } catch (error) {
     console.error(`Error deleting product ${productId}:`, error);
     throw error;
@@ -83,7 +86,7 @@ export const deleteProductById = async (productId) => {
  */
 export const getProductsByCategory = async (category) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/category/${category}`);
+    const response = await api.get(`/${BASE_URL}/category/${category}`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching products in category ${category}:`, error);
@@ -98,7 +101,7 @@ export const getProductsByCategory = async (category) => {
  */
 export const searchProductsByName = async (query) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/search?query=${query}`);
+    const response = await api.get(`/${BASE_URL}/search?query=${query}`);
     return response.data;
   } catch (error) {
     console.error(`Error searching products with query "${query}":`, error);
@@ -108,13 +111,16 @@ export const searchProductsByName = async (query) => {
 
 /**
  * Delete selected products
- * 
+ *
  * @param {Array} selectedProductsIds A list of product IDs to be removed.
  * @returns {Promise<Object>} A response message confirming deletion.
  */
 export const removeSelectedProducts = async (selectedProductsIds) => {
   try {
-    const response = await axios.put(`${API_BASE_URL}/remove-selected-products`, selectedProductsIds);
+    const response = await api.put(
+      `/${BASE_URL}/remove-selected-products`,
+      selectedProductsIds
+    );
     return response.data;
   } catch (error) {
     console.error("Error removing selected products:", error);

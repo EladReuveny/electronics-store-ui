@@ -1,6 +1,6 @@
-import axios from "axios";
+import { api } from "../../config";
 
-const API_BASE_URL = "http://localhost:8080/api/v1/order";
+const BASE_URL = "orders";
 
 /**
  * Fetch orders by user ID
@@ -9,7 +9,7 @@ const API_BASE_URL = "http://localhost:8080/api/v1/order";
  */
 export const getOrdersByUserId = async (userId) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/user/${userId}`);
+    const response = await api.get(`/${BASE_URL}/user/${userId}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching orders:", error);
@@ -25,15 +25,11 @@ export const getOrdersByUserId = async (userId) => {
  */
 export const updateOrderStatus = async (orderId, newOrderStatus) => {
   try {
-    const response = await axios.put(
-      `${API_BASE_URL}/${orderId}`,
-      newOrderStatus,
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      }
-    );
+    const response = await api.put(`/${BASE_URL}/${orderId}`, newOrderStatus, {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
     return response.data;
   } catch (error) {
     console.error("Error updating order status:", error);
@@ -47,7 +43,7 @@ export const updateOrderStatus = async (orderId, newOrderStatus) => {
  */
 export const getAllOrders = async () => {
   try {
-    const response = await axios.get(API_BASE_URL);
+    const response = await api.get(`/${BASE_URL}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching all orders:", error);
@@ -61,7 +57,7 @@ export const getAllOrders = async () => {
  */
 export const getAllOrdersAsXML = async () => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/all/xml-format`, {
+    const response = await api.get(`/${BASE_URL}/all/xml-format`, {
       headers: {
         Accept: "application/xml",
       },
@@ -82,7 +78,7 @@ export const getAllOrdersAsXML = async () => {
  */
 export const cancelOrder = async (orderId) => {
   try {
-    const response = await axios.delete(`${API_BASE_URL}/${orderId}`);
+    const response = await api.delete(`/${BASE_URL}/${orderId}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching all orders:", error);

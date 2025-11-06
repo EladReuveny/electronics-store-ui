@@ -1,6 +1,6 @@
-import axios from "axios";
+import { api } from "../../config";
 
-const API_BASE_URL = "http://localhost:8080/api/v1/shopping-cart";
+const BASE_URL = "shopping-carts";
 
 /**
  * Fetch the shopping cart for a user.
@@ -9,7 +9,7 @@ const API_BASE_URL = "http://localhost:8080/api/v1/shopping-cart";
  */
 export const getCartByUserId = async (userId) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/user/${userId}`);
+    const response = await api.get(`/${BASE_URL}/user/${userId}`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching cart for user ${userId}:`, error);
@@ -26,8 +26,8 @@ export const getCartByUserId = async (userId) => {
  */
 export const addProductToCart = async (userId, productId, quantity) => {
   try {
-    const response = await axios.post(
-      `${API_BASE_URL}/user/${userId}/add-product/${productId}?quantity=${quantity}`
+    const response = await api.post(
+      `/${BASE_URL}/user/${userId}/add-product/${productId}?quantity=${quantity}`
     );
     return response.data;
   } catch (error) {
@@ -42,7 +42,7 @@ export const addProductToCart = async (userId, productId, quantity) => {
  */
 export const clearCart = async (userId) => {
   try {
-    await axios.put(`${API_BASE_URL}/user/${userId}/clear-cart`);
+    await api.put(`/${BASE_URL}/user/${userId}/clear-cart`);
   } catch (error) {
     console.error(`Error clearing cart for user ${userId}:`, error);
     throw error;
@@ -57,8 +57,8 @@ export const clearCart = async (userId) => {
  */
 export const removeProductFromCart = async (userId, productId) => {
   try {
-    const response = await axios.delete(
-      `${API_BASE_URL}/user/${userId}/remove-product/${productId}`
+    const response = await api.delete(
+      `/${BASE_URL}/user/${userId}/remove-product/${productId}`
     );
     return response.data;
   } catch (error) {
@@ -77,9 +77,7 @@ export const removeProductFromCart = async (userId, productId) => {
  */
 export const checkout = async (userId) => {
   try {
-    const response = await axios.post(
-      `${API_BASE_URL}/user/${userId}/checkout`
-    );
+    const response = await api.post(`/${BASE_URL}/user/${userId}/checkout`);
     return response.data;
   } catch (error) {
     console.error(`Error checking out for user ${userId}:`, error);
@@ -96,8 +94,8 @@ export const checkout = async (userId) => {
  */
 export const updateItemQuantity = async (userId, itemId, quantity) => {
   try {
-    const response = await axios.put(
-      `${API_BASE_URL}/user/${userId}/update-quantity/${itemId}?quantity=${quantity}`
+    const response = await api.put(
+      `/${BASE_URL}/user/${userId}/update-quantity/${itemId}?quantity=${quantity}`
     );
     return response.data;
   } catch (error) {

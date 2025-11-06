@@ -1,6 +1,6 @@
-import axios from "axios";
+import { api } from "../../config";
 
-const API_BASE_URL = "http://localhost:8080/api/v1/user";
+const BASE_URL = "users";
 
 /**
  * Fetch all users.
@@ -8,7 +8,7 @@ const API_BASE_URL = "http://localhost:8080/api/v1/user";
  */
 export const getAllUsers = async () => {
   try {
-    const response = await axios.get(API_BASE_URL);
+    const response = await api.get(`/${BASE_URL}`);
     return response.data;
   } catch (error) {
     console.error("Error fetching users:", error);
@@ -23,7 +23,7 @@ export const getAllUsers = async () => {
  */
 export const getUserById = async (userId) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/${userId}`);
+    const response = await api.get(`/${BASE_URL}/${userId}`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching user ${userId}:`, error);
@@ -38,7 +38,7 @@ export const getUserById = async (userId) => {
  */
 export const registerUser = async (user) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/register`, user);
+    const response = await api.post(`/${BASE_URL}/register`, user);
     return response.data;
   } catch (error) {
     console.error("Error registering user:", error);
@@ -54,8 +54,8 @@ export const registerUser = async (user) => {
  */
 export const updateUser = async (userId, userUpdateDTO) => {
   try {
-    const response = await axios.put(
-      `${API_BASE_URL}/${userId}/update`,
+    const response = await api.put(
+      `/${BASE_URL}/${userId}/update`,
       userUpdateDTO
     );
     return response.data;
@@ -71,7 +71,7 @@ export const updateUser = async (userId, userUpdateDTO) => {
  */
 export const deleteUser = async (userId) => {
   try {
-    await axios.delete(`${API_BASE_URL}/${userId}/delete`);
+    await api.delete(`/${BASE_URL}/${userId}/delete`);
   } catch (error) {
     console.error(`Error deleting user ${userId}:`, error);
     throw error;
@@ -85,7 +85,7 @@ export const deleteUser = async (userId) => {
  */
 export const loginUser = async (userLoginDTO) => {
   try {
-    const response = await axios.post(`${API_BASE_URL}/login`, userLoginDTO);
+    const response = await api.post(`/${BASE_URL}/login`, userLoginDTO);
     return response.data;
   } catch (error) {
     console.error("Error logging in user:", error);
@@ -100,13 +100,13 @@ export const loginUser = async (userLoginDTO) => {
  */
 export const forgotPassword = async (userForgotPasswordDTO) => {
   try {
-    const response = await axios.post(
-      `${API_BASE_URL}/forgot-password`,
+    const response = await api.post(
+      `/${BASE_URL}/forgot-password`,
       userForgotPasswordDTO
     );
     return response.data;
   } catch (error) {
     console.error("Error retrieve user's password:", error);
-    throw error.response?.data
+    throw error.response?.data;
   }
 };

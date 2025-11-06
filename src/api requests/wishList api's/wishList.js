@@ -1,6 +1,6 @@
-import axios from "axios";
+import { api } from "../../config";
 
-const API_BASE_URL = "http://localhost:8080/api/v1/wish-list";
+const BASE_URL = "wish-lists";
 
 /**
  * Get the wishlist for a user.
@@ -9,7 +9,7 @@ const API_BASE_URL = "http://localhost:8080/api/v1/wish-list";
  */
 export const getWishList = async (userId) => {
   try {
-    const response = await axios.get(`${API_BASE_URL}/user/${userId}`);
+    const response = await api.get(`/${BASE_URL}/user/${userId}`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching wishlist for user ${userId}:`, error);
@@ -25,8 +25,8 @@ export const getWishList = async (userId) => {
  */
 export const addProductToWishList = async (userId, productId) => {
   try {
-    const response = await axios.post(
-      `${API_BASE_URL}/user/${userId}/add-product/${productId}`
+    const response = await api.post(
+      `/${BASE_URL}/user/${userId}/add-product/${productId}`
     );
     return response.data;
   } catch (error) {
@@ -46,8 +46,8 @@ export const addProductToWishList = async (userId, productId) => {
  */
 export const removeProductFromWishList = async (userId, productId) => {
   try {
-    const response = await axios.delete(
-      `${API_BASE_URL}/user/${userId}/remove-product/${productId}`
+    const response = await api.delete(
+      `/${BASE_URL}/user/${userId}/remove-product/${productId}`
     );
     return response.data;
   } catch (error) {
@@ -68,8 +68,8 @@ export const removeProductFromWishList = async (userId, productId) => {
  */
 export const moveToShoppingCart = async (userId, productId, quantity) => {
   try {
-    const response = await axios.post(
-      `${API_BASE_URL}/user/${userId}/move-to-cart/${productId}?quantity=${quantity}`
+    const response = await api.post(
+      `/${BASE_URL}/user/${userId}/move-to-cart/${productId}?quantity=${quantity}`
     );
     return response.data;
   } catch (error) {
@@ -85,8 +85,8 @@ export const moveToShoppingCart = async (userId, productId, quantity) => {
  */
 export const clearWishList = async (userId) => {
   try {
-    const response = await axios.put(
-      `${API_BASE_URL}/user/${userId}/clear-wishlist`
+    const response = await api.put(
+      `/${BASE_URL}/user/${userId}/clear-wishlist`
     );
     return response.data;
   } catch (error) {
